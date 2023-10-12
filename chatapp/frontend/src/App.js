@@ -7,7 +7,6 @@ function App() {
 
   const handleSubmit = async () => {
     try {
-      console.log(inputMessage);
       const response = await fetch('http://localhost:8000/chat/', {
         method: 'POST',
         headers: {
@@ -16,7 +15,7 @@ function App() {
         body: JSON.stringify({ text: inputMessage }),
       });
       const data = await response.json();
-      setChatLog([...chatLog, { from: 'user', message: inputMessage }, { from: 'bot', message: data.processed_message }]);
+      setChatLog([...chatLog, { from: 'user', message: inputMessage }, { from: 'bot', message: data.text }]);
       setInputMessage('');
     } catch (error) {
       console.error("There was an error:", error);
@@ -36,9 +35,9 @@ function App() {
         <input
           value={inputMessage}
           onChange={e => setInputMessage(e.target.value)}
-          placeholder="Type your message..."
+          placeholder="メッセージを送信"
         />
-        <button onClick={handleSubmit}>Submit</button>
+        <button onClick={handleSubmit}>送信</button>
       </div>
     </div>
   );
