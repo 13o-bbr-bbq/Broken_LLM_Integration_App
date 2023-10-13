@@ -1,8 +1,27 @@
 version: '3.8'
 
 services:
+  db:
+    container_name: chatbot_mysql
+    build:
+      context: ./mysql
+      dockerfile: mysql.Dockerfile
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
+      MYSQL_DATABASE: broken_chatbot
+      TZ: Asia/Tokyo
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysqldb:/var/lib/mysql
+      - ./mysql/logs:/var/log/mysql
+    networks:
+      - broken_chatbot
+
   web:
-    container_name: backend
+    container_name: chatbot_backend
     build:
       context: ./backend
       dockerfile: web.Dockerfile
@@ -10,24 +29,22 @@ services:
       - "8000:8000"
     depends_on:
       - db
+    networks:
+      - broken_chatbot
 
-  frontend:
-    container_name: frontend
+  ui:
+    container_name: chatbot_frontend
     build:
       context: ./frontend
       dockerfile: frontend.Dockerfile
     ports:
       - "3000:3000"
-
-  db:
-    image: mysql:8.0
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      TZ: Asia/Tokyo
-    ports:
-      - "3306:3306"
-    volumes:
-      - db-data:/var/lib/mysql
+    networks:
+      - broken_chatbot
 
 volumes:
-  db-data:
+  mysqldb:
+
+networks:
+  broken_chatbot:
+    driver: bridge

@@ -2,11 +2,15 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
-from .llm_agent import *
+from .llm_agent import llm_controller
+from .db_settings import Base, engine
 
+# Application.
 app = FastAPI()
 
-#origins = ["http://localhost:3000"]
+# Create tables.
+Base.metadata.create_all(bind=engine)
+
 origins = ["*"]
 app.add_middleware(
     CORSMiddleware,
@@ -33,7 +37,7 @@ def healthcheck():
 @app.post("/chat")
 async def run_llm(message: Message) -> LLMResponse:
     try:
-        answer = ask_question(message.text)
+        answer = llm_controller(message.text)
         return LLMResponse(text=answer)
     except Exception as e:
         return LLMResponse(text=f"Error: {str(e)}")
