@@ -41,3 +41,14 @@ async def run_llm(message: Message) -> LLMResponse:
         return LLMResponse(text=answer)
     except Exception as e:
         return LLMResponse(text=f"Error: {str(e)}")
+
+
+@app.post("/chat2")
+async def run_llm(message: Message) -> LLMResponse:
+    try:
+        answer = llm_controller(message.text, db_mode=True)
+        return LLMResponse(text=answer)
+    except HTTPException as e:
+        return LLMResponse(text=f"Error: {str(e)}")
+    except Exception as e:
+        return LLMResponse(text=f"Error: {str(e)}")

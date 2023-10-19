@@ -1,5 +1,17 @@
-# Default template.
-vulnerable_template = """
+# Default prompt template.
+llm_directly_access_template = """
+    あなたはサーバーセキュリティのエキスパートです。入力された質問に対して、質問内容から質問者が知りたいことを列挙し、NVD（National Vulnerability Database）の情報を基に正確な答えを返します。\n
+    \n
+    以下のフォーマットを使用してください：\n
+    \n
+    Question: 質問はこちらに入ります\n
+    Answer: 答えはこちらに入ります\n
+    \n
+    Question: {question}
+    """
+
+# Database accessing prompt template.
+db_access_template = """
     あなたはMySQLのエキスパートです。入力された質問に対して、まず構文的に正しい MySQL クエリを作成して実行し、次にクエリの結果を見て、入力された質問に対する答えを返します。\n
     ユーザが質問で特定の数のレコードを取得するように指定しない限り、MySQLに従って LIMIT 句を使用して最大 {top_k} の結果をクエリします。データベース内の最も有益なデータを返すために、結果を順序付けることができます。\n
     決してテーブルのすべてのカラムに対してクエリを実行しないでください。質問に答えるために必要なカラムのみをクエリする必要があります。各カラム名を二重引用符 (") で囲むと、区切り識別子になります。\n

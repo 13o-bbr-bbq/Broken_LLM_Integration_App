@@ -4,10 +4,12 @@ import './App.css';
 function App() {
   const [inputMessage, setInputMessage] = useState('');
   const [chatLog, setChatLog] = useState([]);
+  const [useAlternateAPI, setUseAlternateAPI] = useState(false);
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch('http://localhost:8000/chat/', {
+      const apiUrl = useAlternateAPI ? 'http://localhost:8000/chat2/' : 'http://localhost:8000/chat/';
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -36,6 +38,11 @@ function App() {
           value={inputMessage}
           onChange={e => setInputMessage(e.target.value)}
           placeholder="メッセージを送信"
+        />
+        <input
+          type="checkbox"
+          checked={useAlternateAPI}
+          onChange={e => setUseAlternateAPI(e.target.checked)}
         />
         <button onClick={handleSubmit}>送信</button>
       </div>

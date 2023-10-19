@@ -6,14 +6,14 @@ from langchain.utilities.sql_database import SQLDatabase
 from langchain_experimental.sql import SQLDatabaseChain
 
 from .llm_models import create_openai_model
-from .llm_prompt_templates import vulnerable_template
+from .llm_prompt_templates import llm_directly_access_template, db_access_template
 from .settings import settings
 
 
 # Ask questions to the LLM using Database.
 def ask_question_db(question: str) -> str:
     try:
-        prompt = vulnerable_template.format(
+        prompt = db_access_template.format(
             top_k=5,
             table_info="users",
             question=question
@@ -33,21 +33,23 @@ def ask_question_db(question: str) -> str:
 
 # Ask questions to the LLM.
 def ask_question(question: str) -> str:
-    template = """
-    Question: {question}\n
-    Answer:
-    """
-    prompt = PromptTemplate(template=template, input_variables=["question"])
+    prompt = PromptTemplate(template=llm_directly_access_template, input_variables=["question"])
     llm_chain = LLMChain(prompt=prompt, llm=create_openai_model())
     answer = llm_chain.run(question)
     return answer
 
 
 # LLM agent.
-def llm_controller(question: str) -> str:
+def llm_controller(question: str, db_mode: bool = False) -> str:
     try:
-        # Use DB access from LLM.
-        answer = ask_question_db(question)
+        answer = ''
+        if db_mode:
+            # Use DB access from LLM.
+            answer = ask_question_db(question)
+        else:
+            # Default.
+            answer = ask_question(question)
         return answer
     except Exception as e:
+        print(e.args)
         raise HTTPException(status_code=500, detail=str(e))
