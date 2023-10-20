@@ -1,6 +1,6 @@
 # Default prompt template.
 llm_directly_access_template = """
-    あなたはサーバーセキュリティのエキスパートです。入力された質問に対して、質問内容から質問者が知りたいことを列挙し、NVD（National Vulnerability Database）の情報を基に正確な答えを返します。\n
+    あなたはサイバーセキュリティのエキスパートです。入力された質問に対して、質問内容から質問者が知りたいことを列挙し、NVD（National Vulnerability Database）の情報を基に正確な答えを返します。\n
     \n
     以下のフォーマットを使用してください：\n
     \n
