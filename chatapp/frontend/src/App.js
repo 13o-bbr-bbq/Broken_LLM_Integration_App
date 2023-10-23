@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
+import userIcon from './assets/icons/user_icon_40.png';
+import botIcon from './assets/icons/robot_icon_40.png';
 
 function App() {
     const [inputMessage, setInputMessage] = useState('');
@@ -37,8 +39,9 @@ function App() {
                     <div className="loading">Loading...</div>
                 ) : (
                     chatLog.map((chat, index) => (
-                        <div key={index} className={chat.from}>
-                            <div className="message">
+                        <div key={index} className={`bubble-container ${chat.from}-container`}>
+                            <img src={chat.from === 'user' ? userIcon : botIcon} alt={`${chat.from}_icon`} className="icon" />
+                            <div className={`${chat.from}-bubble`}>
                                 {chat.message}
                             </div>
                         </div>
@@ -50,14 +53,14 @@ function App() {
                     type="text"
                     value={inputMessage}
                     onChange={e => setInputMessage(e.target.value)}
-                    placeholder="メッセージを送信"
+                    placeholder="Send a message"
                 />
                 <input
                     type="checkbox"
                     checked={useAlternateAPI}
                     onChange={e => setUseAlternateAPI(e.target.checked)}
                 />
-                <button onClick={handleSubmit}>送信</button>
+                <button onClick={handleSubmit}>Send</button>
             </div>
         </div>
     );
