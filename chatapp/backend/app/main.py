@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
-from .llm_agent import llm_controller
+from .llm_agent import prompt_leaking_lv1, p2sql_injection_lv1, p2sql_injection_lv2
 from .db_settings import Base, engine
 
 # Application.
@@ -34,21 +34,28 @@ def healthcheck():
     return {}
 
 
-@app.post("/chat")
-async def run_llm(message: Message) -> LLMResponse:
+@app.post("/prompt-leaking-lv1")
+async def api_prompt_leaking_lv1(message: Message) -> LLMResponse:
     try:
-        answer = llm_controller(message.text)
+        answer = prompt_leaking_lv1(message.text)
         return LLMResponse(text=answer)
     except Exception as e:
-        return LLMResponse(text=f"Error: {str(e)}")
+        return LLMResponse(text=f"Error: {', '.join(map(str, e.args))}")
 
 
-@app.post("/chat2")
-async def run_llm(message: Message) -> LLMResponse:
+@app.post("/p2sql-injection-lv1")
+async def api_p2sql_injection_lv1(message: Message) -> LLMResponse:
     try:
-        answer = llm_controller(message.text, db_mode=True)
+        answer = p2sql_injection_lv1(message.text)
         return LLMResponse(text=answer)
-    except HTTPException as e:
-        return LLMResponse(text=f"Error: {str(e)}")
     except Exception as e:
-        return LLMResponse(text=f"Error: {str(e)}")
+        return LLMResponse(text=f"Error: {', '.join(map(str, e.args))}")
+
+
+@app.post("/p2sql-injection-lv2")
+async def api_p2sql_injection_lv2(message: Message) -> LLMResponse:
+    try:
+        answer = p2sql_injection_lv2(message.text)
+        return LLMResponse(text=answer)
+    except Exception as e:
+        return LLMResponse(text=f"Error: {', '.join(map(str, e.args))}")
