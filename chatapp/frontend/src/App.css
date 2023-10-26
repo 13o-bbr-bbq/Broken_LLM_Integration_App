@@ -1,4 +1,15 @@
 /* App.css */
+:root {
+    --header-bar-height: 40px;
+    --chat-log-margin-top: 70px;
+    --chat-log-margin-left-right: 10px;
+    --chat-log-margin-bottom: 10px;
+    --input-area-height: 20px;
+    --input-area-left-right: 10px;
+    --input-area-left-bottom: 10px;
+    --input-area-margin: 20px;
+}
+
 body {
     background-color: #87ceeb;
     margin: 0;
@@ -7,11 +18,11 @@ body {
 
 .App {
     color: black;
-    width: 100%;
+    width: calc(100% - 20px);
 }
 
 .headerBar {
-    height: 40px;
+    height: var(--header-bar-height);
     line-height: 40px;
     background-color: #333;
     color: white;
@@ -26,15 +37,15 @@ body {
 }
 
 .chatLog {
-    margin-top: 60px;
-    margin-bottom: 10px;
+    margin: var(--chat-log-margin-top) var(--chat-log-margin-left-right) var(--chat-log-margin-left-right) var(--chat-log-margin-bottom);
     background-color: #ffffff;
-    width: 100%;
+    width: calc(100% - 20px);
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     overflow-y: auto;
-    height: 400px;
+    /*height: 400px;*/
+    height: calc(100vh - var(--header-bar-height) - var(--chat-log-margin-top) - var(--chat-log-margin-bottom) - var(--input-area-height) - 20px);
 }
 
 .chatLog .user, .chatLog .bot {
@@ -46,22 +57,23 @@ body {
 }
 
 .chatLog .user {
-    text-align: left;
+    text-align: right;
     background-color: #e6f7ff;
-    margin-left: 50%;
+    margin: 10px;
 }
 
 .chatLog .bot {
-    text-align: right;
+    text-align: left;
     background-color: #fff3e0;
-    margin-right: 50%;
+    margin: 10px;
 }
 
 .inputArea {
+    margin: 0 var(--input-area-left-right) var(--input-area-left-bottom) var(--input-area-left-right);
+    width: 100%;
     display: grid;
-    grid-template-columns: 8fr 1fr 3fr;
+    grid-template-columns: 10fr 1fr 1fr;
     gap: 10px;
-    margin: 20px 0;
 }
 
 .inputArea input[type="text"] {
@@ -88,18 +100,12 @@ button:hover {
   background-color: #0056b3;
 }
 
-.loading {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-}
-
 .bubble-container {
-    width: 50%;
-    margin: auto;
-    margin-bottom: 10px;
+    /*width: 50%;*/
+    width: 100%;
+    margin: auto auto 10px;
     display: flex;
+    justify-content: flex-end;
 }
 
 .user-bubble, .bot-bubble {
@@ -155,9 +161,11 @@ button:hover {
 }
 
 .user-container {
+    display: flex;
     justify-content: flex-end;
 }
 
 .bot-container {
+    display: flex;
     justify-content: flex-start;
 }
