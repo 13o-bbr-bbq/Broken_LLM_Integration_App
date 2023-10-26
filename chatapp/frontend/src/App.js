@@ -6,14 +6,13 @@ import botIcon from './assets/icons/robot_icon_40.png';
 function App() {
     const [inputMessage, setInputMessage] = useState('');
     const [chatLog, setChatLog] = useState([]);
-    const [useAlternateAPI, setUseAlternateAPI] = useState(false);
+    const [apiUrl, setApiUrl] = useState('http://localhost:8000/prompt-leaking-lv1/');
     const [loading, setLoading] = useState(false);
 
     const handleSubmit = async () => {
-        setInputMessage('');  /* 送信ボタンを押した直後に入力フォームの文字列を消去 */
+        setInputMessage('');
         setLoading(true);
         try {
-            const apiUrl = useAlternateAPI ? 'http://localhost:8000/chat2/' : 'http://localhost:8000/chat/';
             const response = await fetch(apiUrl, {
                 method: 'POST',
                 headers: {
@@ -55,11 +54,14 @@ function App() {
                     onChange={e => setInputMessage(e.target.value)}
                     placeholder="Send a message"
                 />
-                <input
-                    type="checkbox"
-                    checked={useAlternateAPI}
-                    onChange={e => setUseAlternateAPI(e.target.checked)}
-                />
+                <select
+                    value={apiUrl}
+                    onChange={e => setApiUrl(e.target.value)}
+                >
+                    <option value='http://localhost:8000/prompt-leaking-lv1/'>Leak Lv.1</option>
+                    <option value='http://localhost:8000/p2sql-injection-lv1/'>SQLi Lv.1</option>
+                    <option value='http://localhost:8000/p2sql-injection-lv2/'>SQLi Lv.2</option>
+                </select>
                 <button onClick={handleSubmit}>Send</button>
             </div>
         </div>
