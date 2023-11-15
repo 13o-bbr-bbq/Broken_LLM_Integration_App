@@ -2,7 +2,7 @@
 ![Version](https://img.shields.io/badge/release-v0.0.1-blue) ![Release date](https://img.shields.io/badge/release_date-november_2023-%23Clojure) ![License](https://img.shields.io/badge/License-MIT-%23326ce5)  
 ![Docker](https://img.shields.io/badge/Docker-%230db7ed) ![ChatGPT](https://img.shields.io/badge/ChatGPT-74aa9c) ![LangChain](https://img.shields.io/badge/LangChain-0.0.305-%23EB0443) ![Python](https://img.shields.io/badge/Python-3.11.6-ffdd54) ![FastAPI](https://img.shields.io/badge/FastAPI-0.103.2-005571) ![React](https://img.shields.io/badge/React-17.0.2-%2361DAFB) ![MySQL](https://img.shields.io/badge/MySQL-8.0.28-%2300f)
 
-<img src="./assets/images/broken_chatbot_logo.png" width="35%">
+<img src="./assets/images/broken_chatbot_logo.png" width="70%">
   
 created by ChatGPT  
 
@@ -29,13 +29,13 @@ The current version of Broken Chatbot contains the following vulnerabilities.
 - P2SQL Injection
 
 ### Prompt Injection
-Prompt Injection is a technique used to manipulate or exploit conversational AI systems, like chatbots or voice assistants, by crafting inputs that include hidden or unexpected instructions within them. This technique can be used to alter the behavior of the AI in unintended ways or to extract information that should not be accessible.  
+Prompt Injection is a technique used to manipulate or exploit conversational AI systems, like chatbots or virtual assistants, by crafting inputs that include hidden or unexpected instructions within them. This technique can be used to alter the behavior of the AI in unintended ways or to extract information that should not be accessible.  
 
 ### Prompt Leaking
 Prompt Leaking refers to a situation where a conversational AI, like a chatbot or a language model, inadvertently reveals parts of its internal prompts, training data, or operational instructions within its responses. This can happen due to flaws in the AI's design or when it's tricked into divulging more information than it's supposed to.  
 
 ### P2SQL Injection
-P2SQL Injection is an attack in which a malicious Prompt is inputted into an LLM application, such as a chatbot or voice assistant integrated with the LLM and DBMS, to manipulate the DBMS. If an LLM application is P2SQL Injected, it can cause extensive damage, including data theft, falsification, and deletion from the DBMS.  
+P2SQL Injection is an attack in which a malicious Prompt is inputted into an LLM application, such as a chatbot or virtual assistant integrated with the LLM and DBMS, to manipulate the DBMS. If an LLM application is P2SQL Injected, it can cause extensive damage, including data theft, falsification, and deletion from the DBMS.  
 
 ## Installation
 
@@ -84,7 +84,7 @@ Broken_LLM_Integration_App/chatapp/backend/
 ```
 
 5. Importing Table Data.  
-The current version of Broken Chatbot accesses the DBMS (MySQL) `users` table.  
+The current version of Broken Chatbot accesses the `users` table of DBMS (MySQL).  
 The structure of the `users` table is shown below.  
 
 ```python
@@ -124,11 +124,11 @@ http://localhost:3000
 ## Usage
 The following figure shows the Broken Chatbot UI.  
 
-<img src="./assets/images/broken_chatbot_screenshot.png" width="40%">  
+<img src="./assets/images/broken_chatbot_screenshot.png" width="80%">  
 
 Broken Chatbot uses "React" for the frontend, "FastAPI" for the backend, "OpenAI GPT" for LLM, and "LangChain" for LLM integration middleware. In addition, the DBMS that Broken Chatbot connects to is "MySQL".
 
-Users can start chatting by inputting a Prompt in the input form (Send a message) at the bottom of the screen and clicking the "Send" button. The Prompt inputted by the user will be displayed with a blue background on the right side of the chat history. The response from Broken Chatbot is shown on the left side of the screen with an orange background.  
+Users can start chatting by inputting a Prompt in the input form (Send a message) at the bottom of the screen and clicking the "Send" button. The Prompt inputted by the user will be displayed with a blue background on the right side of the chat history. The response from Broken Chatbot is displayed with an orange background on the left side of the screen.  
 
 Users can also toggle the behavior of the Broken Chatbot by selecting the pull-down menu to the left of the "Send" button.  
 The menu of choices available in the current version of Broken Chatbot is as following:  
@@ -139,7 +139,7 @@ The menu of choices available in the current version of Broken Chatbot is as fol
 
 ### Leak Lv.1  
 In the "Leak Lv.1" mode, you will experience `Prompt Injection` and `Prompt Leaking`.  
-Try to steal the `Prompt Template` from Broken Chatbot by crafting the Prompt you input.  
+You can try to steal the `Prompt Template` from Broken Chatbot by crafting a Prompt you input.  
 
 ### SQLi Lv.1  
 In the "Leak Lv.1" mode, you will experience a simple `P2SQL Injection`.  
