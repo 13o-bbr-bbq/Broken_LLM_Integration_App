@@ -1,9 +1,10 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field
 
+from .models import Message, LLMResponse
 from .llm_agent import prompt_leaking_lv1, p2sql_injection_lv1, p2sql_injection_lv2
 from .db_settings import Base, engine
+from .filters import input_filter, output_filter
 
 # Application.
 app = FastAPI()
@@ -21,41 +22,33 @@ app.add_middleware(
 )
 
 
-class Message(BaseModel):
-    text: str = Field(title="Request message to LLM.", max_length=1000)
-
-
-class LLMResponse(BaseModel):
-    text: str
-
-
 @app.get("/healthcheck")
 def healthcheck():
     return {}
 
 
 @app.post("/prompt-leaking-lv1")
-async def api_prompt_leaking_lv1(message: Message) -> LLMResponse:
+async def api_prompt_leaking_lv1(message: Message = Depends(input_filter)) -> LLMResponse:
     try:
         answer = prompt_leaking_lv1(message.text)
-        return LLMResponse(text=answer)
+        return LLMResponse(text=output_filter(answer))
     except Exception as e:
         return LLMResponse(text=f"Error: {', '.join(map(str, e.args))}")
 
 
 @app.post("/p2sql-injection-lv1")
-async def api_p2sql_injection_lv1(message: Message) -> LLMResponse:
+async def api_p2sql_injection_lv1(message: Message = Depends(input_filter)) -> LLMResponse:
     try:
         answer = p2sql_injection_lv1(message.text)
-        return LLMResponse(text=answer)
+        return LLMResponse(text=output_filter(answer))
     except Exception as e:
         return LLMResponse(text=f"Error: {', '.join(map(str, e.args))}")
 
 
 @app.post("/p2sql-injection-lv2")
-async def api_p2sql_injection_lv2(message: Message) -> LLMResponse:
+async def api_p2sql_injection_lv2(message: Message = Depends(input_filter)) -> LLMResponse:
     try:
         answer = p2sql_injection_lv2(message.text)
-        return LLMResponse(text=answer)
+        return LLMResponse(text=output_filter(answer))
     except Exception as e:
         return LLMResponse(text=f"Error: {', '.join(map(str, e.args))}")
