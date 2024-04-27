@@ -74,6 +74,7 @@ function App() {
                     <option value='http://localhost:8000/prompt-leaking-lv1/'>Leak Lv.1</option>
                     <option value='http://localhost:8000/p2sql-injection-lv1/'>SQLi Lv.1</option>
                     <option value='http://localhost:8000/p2sql-injection-lv2/'>SQLi Lv.2</option>
+                    <option value='http://localhost:8000/llm4shell-lv1/'>LLM4Shell Lv.1</option>
                 </select>
                 <button onClick={handleSubmit}>Send</button>
             </div>

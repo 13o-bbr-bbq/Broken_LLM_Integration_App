@@ -3,8 +3,8 @@ from langchain.chat_models import ChatOpenAI
 from .settings import settings
 
 
-# Create ChatGPT model.
-def create_openai_model():
+# Create ChatGPT model for chat.
+def create_chat_openai_model():
     llm = ChatOpenAI(
         openai_api_key=settings.OPENAI_API_KEY,
         model_name=settings.OPENAI_MODEL_NAME,

@@ -10,6 +10,8 @@ sqlalchemy==2.0.21
 pymysql==1.1.0
 
 # LLM
+#langchain==0.1.16
+#langchain_experimental==0.0.57
 langchain==0.0.305
 langchain_experimental==0.0.25
 openai==0.28.1
