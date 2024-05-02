@@ -4,7 +4,7 @@ from langchain.prompts import PromptTemplate
 from .llm_models import *
 from .llm_prompt_templates import *
 from .llm_db_chain import create_db_chain
-from .llm_shell_chain import create_shell_chain
+from .llm_shell_chain import create_shell_chain_math_prompt, create_shell_chain_native
 
 
 # Ask questions to the LLM using Database.
@@ -46,9 +46,18 @@ def prompt_leaking_lv1(question: str) -> str:
 # Ask questions to the LLM using system files.
 def llm4shell_lv1(question: str) -> str:
     try:
-        prompt_template = PromptTemplate(template=llm4shell_lv1_template, input_variables=["question"])
-        answer = create_shell_chain(prompt_template, question)
-        print(answer)
+        prompt_template = PromptTemplate(template=llm4shell_template, input_variables=["question"])
+        answer = create_shell_chain_math_prompt(prompt_template, question)
+        return answer if isinstance(answer, dict) else str(answer)
+    except Exception as e:
+        return f"Error in ask_question_shell: {', '.join(map(str, e.args))}"
+
+
+# Ask questions to the LLM using system files.
+def llm4shell_lv2(question: str) -> str:
+    try:
+        prompt_template = PromptTemplate(template=llm4shell_template, input_variables=["question"])
+        answer = create_shell_chain_native(prompt_template, question)
         return answer if isinstance(answer, dict) else str(answer)
     except Exception as e:
         return f"Error in ask_question_shell: {', '.join(map(str, e.args))}"

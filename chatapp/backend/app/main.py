@@ -61,3 +61,12 @@ async def api_llm4shell_lv1(message: Message = Depends(input_filter)) -> LLMResp
         return LLMResponse(text=output_filter(answer))
     except Exception as e:
         return LLMResponse(text=f"Error: {', '.join(map(str, e.args))}")
+
+
+@app.post("/llm4shell-lv2")
+async def api_llm4shell_lv2(message: Message = Depends(input_filter)) -> LLMResponse:
+    try:
+        answer = llm4shell_lv2(message.text)
+        return LLMResponse(text=output_filter(answer))
+    except Exception as e:
+        return LLMResponse(text=f"Error: {', '.join(map(str, e.args))}")
