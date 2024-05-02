@@ -57,8 +57,11 @@ p2sql_injection_lv2_template = """
     Question: {question}
     """
 
-# LLM4Shell Lv.1 prompt template.
-llm4shell_lv1_template = """
-    You are a Python expert. Please describe codes to solve the following questions in Python.
+# LLM4Shell prompt template.
+llm4shell_template = """
+    You are a Python expert. Please implement python codes following questions.
     Question: {question}
+    Define a function named 'solution' that execute the answer. And the function 'solution' is then called.
+    Please respond only with generated Python code.
+    Don't describe the code or process, just answer the question.
     """
