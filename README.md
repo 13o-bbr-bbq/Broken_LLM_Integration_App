@@ -118,7 +118,7 @@ Execute the command below to initiate the Broken Chatbot.
 Utilize a web browser to access the specified URL.  
 
 ```bash
-http://localhost:3000
+http://localhost
 ```
 
 ## Usage
