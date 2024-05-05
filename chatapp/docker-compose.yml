@@ -37,8 +37,20 @@ services:
     build:
       context: ./frontend
       dockerfile: frontend.Dockerfile
+#    ports:
+#      - "3000:3000"
+    networks:
+      - broken_chatbot
+
+  nginx:
+    container_name: chatbot_nginx
+    build:
+      context: ./nginx
+      dockerfile: nginx.Dockerfile
     ports:
-      - "3000:3000"
+      - "80:80"
+    depends_on:
+      - ui
     networks:
       - broken_chatbot
 

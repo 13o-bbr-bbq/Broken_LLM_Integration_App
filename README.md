@@ -1,6 +1,6 @@
 # Broken Chatbot
 ![Version](https://img.shields.io/badge/release-v0.0.1-blue) ![Release date](https://img.shields.io/badge/release_date-november_2023-%23Clojure) ![License](https://img.shields.io/badge/License-MIT-%23326ce5)  
-![Docker](https://img.shields.io/badge/Docker-%230db7ed) ![ChatGPT](https://img.shields.io/badge/ChatGPT-74aa9c) ![LangChain](https://img.shields.io/badge/LangChain-0.1.16-%23EB0443) ![Python](https://img.shields.io/badge/Python-3.11.6-ffdd54) ![FastAPI](https://img.shields.io/badge/FastAPI-0.103.2-005571) ![React](https://img.shields.io/badge/React-17.0.2-%2361DAFB) ![MySQL](https://img.shields.io/badge/MySQL-8.0.28-%2300f)
+![Release date](https://img.shields.io/badge/nginx-1.25.5-%23Clojure) ![Docker](https://img.shields.io/badge/Docker-%230db7ed) ![ChatGPT](https://img.shields.io/badge/ChatGPT-74aa9c) ![LangChain](https://img.shields.io/badge/LangChain-0.1.16-%23EB0443) ![Python](https://img.shields.io/badge/Python-3.11.6-ffdd54) ![FastAPI](https://img.shields.io/badge/FastAPI-0.103.2-005571) ![React](https://img.shields.io/badge/React-17.0.2-%2361DAFB) ![MySQL](https://img.shields.io/badge/MySQL-8.0.28-%2300f)
 
 <img src="./assets/images/broken_chatbot_logo.png" width="70%">
   
@@ -118,7 +118,7 @@ Execute the command below to initiate the Broken Chatbot.
 Utilize a web browser to access the specified URL.  
 
 ```bash
-http://localhost:3000
+http://localhost
 ```
 
 ## Usage
