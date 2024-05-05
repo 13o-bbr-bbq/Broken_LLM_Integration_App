@@ -1,59 +1,59 @@
 # Broken Chatbot
 ![Version](https://img.shields.io/badge/release-v0.0.1-blue) ![Release date](https://img.shields.io/badge/release_date-november_2023-%23Clojure) ![License](https://img.shields.io/badge/License-MIT-%23326ce5)  
-![Docker](https://img.shields.io/badge/Docker-%230db7ed) ![ChatGPT](https://img.shields.io/badge/ChatGPT-74aa9c) ![LangChain](https://img.shields.io/badge/LangChain-0.0.305-%23EB0443) ![Python](https://img.shields.io/badge/Python-3.11.6-ffdd54) ![FastAPI](https://img.shields.io/badge/FastAPI-0.103.2-005571) ![React](https://img.shields.io/badge/React-17.0.2-%2361DAFB) ![MySQL](https://img.shields.io/badge/MySQL-8.0.28-%2300f)
+![Docker](https://img.shields.io/badge/Docker-%230db7ed) ![ChatGPT](https://img.shields.io/badge/ChatGPT-74aa9c) ![LangChain](https://img.shields.io/badge/LangChain-0.1.16-%23EB0443) ![Python](https://img.shields.io/badge/Python-3.11.6-ffdd54) ![FastAPI](https://img.shields.io/badge/FastAPI-0.103.2-005571) ![React](https://img.shields.io/badge/React-17.0.2-%2361DAFB) ![MySQL](https://img.shields.io/badge/MySQL-8.0.28-%2300f)
 
 <img src="./assets/images/broken_chatbot_logo.png" width="70%">
   
 created by ChatGPT  
 
-Broken Chatbot is an application for verifying vulnerabilities in LLM applications, such as Prompt Injection, Prompt Leaking, and P2SQL Injection.
+Broken Chatbot is an application designed to verify vulnerabilities in LLM applications, including Prompt Injection, Prompt Leaking, P2SQL Injection and LLM4Shell.
 
 |Note|
 |:---|
-|This LLM application is very vulnerable and should only be used in a local environment. It should not be made public.|
+|This LLM application is highly vulnerable and ought to be utilized solely within a local environment; it should never be made public.|
 
 ---
 
 ## Overview
-By using LLM integration middleware such as Flowise and LangChain, it is easy to develop "LLM applications" that integrate Web applications, LLM, and DBMS. As a result, the number of LLM applications is increasing. However, LLM applications have different attack surfaces than conventional Web applications. As noted in the [OWASP Top 10 for Large Language Model Applications](https://owasp.org/www-project-top-10-for-large-language-model-applications/), there are numerous new attack surfaces for LLM applications.  
+Utilizing LLM integration middleware like Flowise and LangChain facilitates the development of "LLM applications" that seamlessly integrate web applications, LLMs, and DBMSs. Consequently, there has been a noticeable increase in the number of LLM applications. Nevertheless, these applications present distinct attack surfaces compared to traditional web applications. As highlighted in the [OWASP Top 10 for LLM Applications](https://owasp.org/www-project-top-10-for-large-language-model-applications/), LLM applications are susceptible to a broad array of novel attack surfaces.  
 
-Therefore, if an LLM application is developed without "cyber security" in mind, it may be attacked. Thus, it is important for LLM applications developers to consider "security specific to LLM applications" in addition to conventional security, and to take measures to avoid or mitigate damage in the event of an attack.  
+Consequently, should a Large Language Model (LLM) application be developed without incorporating cybersecurity considerations, it becomes vulnerable to attacks. Therefore, it is imperative for developers of LLM applications not only to address traditional security concerns but also to implement security measures specific to LLM applications in order to prevent or mitigate potential damages resulting from such attacks.  
 
-So, we have released an LLM application called  "Broken Chatbot", to help LLM application developers understand the vulnerabilities and countermeasures specific to LLM applications. Broken Chatbot has vulnerabilities specific to LLM applications, such as Prompt Injection, Prompt Leaking, and P2SQL Injection. LLM application developers can use Broken Chatbot to experience these vulnerabilities and learn how to defend against them.  
+We have developed a LLM application named "Broken Chatbot," designed to facilitate LLM application developers' comprehension of vulnerabilities unique to such applications, alongside their respective countermeasures. "Broken Chatbot" embodies specific vulnerabilities inherent to LLM applications, including Prompt Injection, Prompt Leaking, P2SQL Injection and LLM4Shell. This platform allows developers to directly encounter these security issues, thereby enhancing their understanding of effective defensive strategies.  
 
 ## Features
-The current version of Broken Chatbot contains the following vulnerabilities.  
+The present version of Broken Chatbot exhibits the following vulnerabilities.  
 
 - Prompt Injection  
+  - An attack involving the input of malicious prompts designed to manipulate LLMs.  
+  - Prompt Injection is a technique employed to manipulate or exploit conversational AI systems, such as chatbots or virtual assistants, by crafting inputs that embed hidden or unexpected instructions. This strategy can be utilized to modify the AI's behavior in unintended ways or to extract information that ought to remain inaccessible. For more information, see "[Prompt Injection](https://learnprompting.org/docs/prompt_hacking/injection)" in Learn Prompting.  
 - Prompt Leaking  
+  - An attempt to exfiltrate system prompts within LLM applications through the entry of malicious prompts.  
+  - Prompt Leaking describes a scenario in which a conversational AI, such as a chatbot or a language model, inadvertently discloses all or portions of its internal prompts, or operational instructions within its responses. This phenomenon may occur due to flaws in the AI's design or when the AI is manipulated into revealing more information than intended. For more information, see "[Prompt Leaking](https://learnprompting.org/docs/prompt_hacking/leaking)" in Learn Prompting.  
 - P2SQL Injection
-
-### Prompt Injection
-Prompt Injection is a technique used to manipulate or exploit conversational AI systems, like chatbots or virtual assistants, by crafting inputs that include hidden or unexpected instructions within them. This technique can be used to alter the behavior of the AI in unintended ways or to extract information that should not be accessible.  
-
-### Prompt Leaking
-Prompt Leaking refers to a situation where a conversational AI, like a chatbot or a language model, inadvertently reveals parts of its internal prompts, training data, or operational instructions within its responses. This can happen due to flaws in the AI's design or when it's tricked into divulging more information than it's supposed to.  
-
-### P2SQL Injection
-P2SQL Injection is an attack in which a malicious Prompt is inputted into an LLM application, such as a chatbot or virtual assistant integrated with the LLM and DBMS, to manipulate the DBMS. If an LLM application is P2SQL Injected, it can cause extensive damage, including data theft, falsification, and deletion from the DBMS.  
+  - An attack involves the insertion of malicious prompts designed to manipulate the database management system of LLM application.  
+  - P2SQL Injection constitutes an attack wherein a malicious prompt is inserted into an LLM application, such as a chatbot or virtual assistant that integrates with both the LLM and a DBMS, thereby manipulating the DBMS. Should a P2SQL Injection occur within an LLM application, it could lead to substantial damage, encompassing data theft, falsification, and deletion within the DBMS. For more information, see "[From Prompt Injections to SQL Injection Attacks: How Protected is Your LLM-Integrated Web Application?](https://arxiv.org/abs/2308.01990)" in arXiv.  
+- LLM4Shell
+   - An attack involves the insertion of malicious prompts designed to execute Remote Command Execution (RCE) within LLM application.  
+  - LLM4Shell constitutes an attack wherein a malicious prompt is inserted into an LLM application, such as a chatbot or virtual assistant, thereby Remote Command Execution (RCE). Should a LLM4Shell occur within LLM application, it could lead to substantial damage, encompassing data theft, falsification, deletion and Intrusion into the system. For more information, see "[LLM4Shell: Discovering and Exploiting RCE Vulnerabilities in Real-World LLM-Integrated Frameworks and Apps](https://www.blackhat.com/asia-24/briefings/schedule/index.html#llmshell-discovering-and-exploiting-rce-vulnerabilities-in-real-world-llm-integrated-frameworks-and-apps-37215)" in Black Hat ASIA 2024.  
 
 ## Installation
 
-1. Install Docker Engine and Docker Compose.  
-Broken Chatbot is launched using the Docker Engine and Docker Compose.  
-Therefore, please refer to the following web sites to install Docker Engine and Docker Compose.  
+1. Install the Docker Engine along with Docker Compose.  
+The Broken Chatbot is deployed using Docker Engine and Docker Compose.  
+Consequently, please consult the following websites to install Docker Engine and Docker Compose.  
 [https://docs.docker.com/](https://docs.docker.com/)  
 
-2. Get Broken Chatbot repository.  
-Execute the following command to copy the Broken Chatbot repository to your local environment.  
+2. Acquire the Broken Chatbot Repository.  
+Execute the command below to clone the Broken Chatbot repository into your local environment.  
 
 ```bash
 ~$ git clone https://github.com/13o-bbr-bbq/Broken_LLM_Integration_App.git
 ```
 
-3. Create `.env` file.  
-Create a configuration file for Broken Chatbot.  
-Please refer to the sample shown below.  
+3. Create a `.env` file.  
+Construct a configuration file for the Broken Chatbot.  
+Refer to the example provided below.  
 
 ```bash
 # MySQL.
@@ -70,22 +70,22 @@ OPENAI_TEMPERATURE=0.9
 OPENAI_VERBOSE=true
 ```
 
-`your_api_key` is OpenAI API Key. `your_model_name` is OpenAI GPT's model name.  
-So, `your_api_key` and `your_model_name` should be your available API Key and model name.
-You can obtain this information from the following web site.  
+`your_api_key` represents your OpenAI API Key, while `your_model_name` denotes the model name of OpenAI's GPT.  
+Consequently, both `your_api_key` and `your_model_name` ought to correspond to your accessible API Key and designated model name, respectively.  
+This information can be procured from the website listed below.
 
 [https://platform.openai.com/](https://platform.openai.com/)
 
-4. Placement of `.env` files.  
-Place the .env file you created in the following path.  
+4. Placement of `.env` file.  
+Position the `.env` file you have created at the specified path below.  
 
 ```bash
 Broken_LLM_Integration_App/chatapp/backend/
 ```
 
 5. Importing Table Data.  
-The current version of Broken Chatbot accesses the `users` table of DBMS (MySQL).  
-The structure of the `users` table is shown below.  
+The present version of Broken Chatbot retrieves data from the users table in a DBMS (MySQL).  
+Below is the structure of the users table.  
 
 ```python
 # User table.
@@ -98,56 +98,50 @@ class User(Base):
     full_name = Column(String(100))
 ```
 
-If you want to import the sample data we have prepared into users table, please use the following data:  
+Should you wish to import the sample data we have prepared into the users table, please utilize the following data:  
 [Sample data](./assets/sample_data/broken_chatbot_users.csv)  
 
-6. Building Broken Chatbot.  
-Execute the following command to build Broken Chatbot.  
+6. Constructing the Broken Chatbot.  
+Execute the command below to assemble the Broken Chatbot.  
 
 ```bash
 ~$ Broken_LLM_Integration_App/chatapp/docker-compose build
 ```
 
-7. Launch Broken Chatbot.  
-Execute the following command to start Broken Chatbot.  
+7. Launch the Broken Chatbot.  
+Execute the command below to initiate the Broken Chatbot.  
 
 ```bash
 ~$ Broken_LLM_Integration_App/chatapp/docker-compose up
 ```
-8. Access Broken Chatbot.  
-Using a web browser, access the following URL.  
+8. Access the Broken Chatbot.  
+Utilize a web browser to access the specified URL.  
 
 ```bash
 http://localhost:3000
 ```
 
 ## Usage
-The following figure shows the Broken Chatbot UI.  
+The diagram below illustrates the user interface of the Broken Chatbot.  
 
 <img src="./assets/images/broken_chatbot_screenshot.png" width="80%">  
 
-Broken Chatbot uses "React" for the frontend, "FastAPI" for the backend, "OpenAI GPT" for LLM, and "LangChain" for LLM integration middleware. In addition, the DBMS that Broken Chatbot connects to is "MySQL".
+Broken Chatbot employs "React" for its frontend, "FastAPI" for the backend, "OpenAI GPT" as the LLM, and "LangChain" as middleware for LLM integration. Furthermore, it connects to a "MySQL" database management system.  
 
-Users can start chatting by inputting a Prompt in the input form (Send a message) at the bottom of the screen and clicking the "Send" button. The Prompt inputted by the user will be displayed with a blue background on the right side of the chat history. The response from Broken Chatbot is displayed with an orange background on the left side of the screen.  
+To initiate a conversation, users must enter a prompt in the input field labeled 'Send a message' at the bottom of the interface and click the "Send" button. The prompt submitted will appear on the right side of the chat history, highlighted with a blue background. In contrast, responses from Broken Chatbot are displayed on the left with an orange background.  
 
-Users can also toggle the behavior of the Broken Chatbot by selecting the pull-down menu to the left of the "Send" button.  
-The menu of choices available in the current version of Broken Chatbot is as following:  
+Additionally, users have the option to alter the behavior of Broken Chatbot by selecting from a dropdown menu located to the left of the "Send" button. The current version of Broken Chatbot offers the following modes:  
 
 - Leak Lv.1  
+  - You can execute the `Prompt Leaking`, enabling them to attempt theft of the `System Template` of Broken Chatbot by malicious prompts (`Prompt Injection`).  
 - SQLi Lv.1  
+  - You can execute the `P2SQL Injection`, enabling them to attempt data theft, data tampering and deletion from the 'users' table which Broken Chatbot is connected by malicious prompts (`Prompt Injection`).  
 - SQLi Lv.2  
-
-### Leak Lv.1  
-In the "Leak Lv.1" mode, you will experience `Prompt Injection` and `Prompt Leaking`.  
-You can try to steal the `Prompt Template` from Broken Chatbot by crafting a Prompt you input.  
-
-### SQLi Lv.1  
-In the "Leak Lv.1" mode, you will experience a simple `P2SQL Injection`.  
-You can try to steal information from the `users` table that `Broken Chatbot` connects to, tamper with records, delete records, etc. by crafting a Prompt you input.
-
-### SQLi Lv.2  
-In the "Leak Lv. 2" mode, you will experience a `slightly more difficult P2SQL injection`. In this mode, Broken Chatbot is controlled to not tamper with or delete records using a `defensive Prompt Template`.  
-So, you can try to bypass the `defensive Prompt Template` using `Prompt Injection` and tamper or delte records of `users` table.  
+  - In this mode, the challenge intensifies through a more complex `P2SQL injection`. Here, the Broken Chatbot is programmed with a defensive system template designed to prevent data theft, tampering, or deletion. Nevertheless, you may attempt to circumvent these protective measures using `Prompt Injection`, potentially leading to data theft, tampering, or deletion in the users' table.
+- LLM4Shell Lv.1
+  - You can execute the `LLM4Shell`, enabling them to execute arbitrary Python code on the system where Broken Chatbot is running.   
+- LLM4Shell Lv.2
+  - You can execute the complex `LLM4Shell`, enabling them to execute `Remote Command Execution` (RCE) on the system where Broken Chatbot is running. In addition, you can execute intrusion into the system.
 
 ## License
 [MIT License](https://github.com/13o-bbr-bbq/Broken_LLM_Integration_App/blob/main/LICENSE)  
