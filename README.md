@@ -1,12 +1,12 @@
 # Broken Chatbot
-![Version](https://img.shields.io/badge/release-v0.0.1-blue) ![Release date](https://img.shields.io/badge/release_date-november_2023-%23Clojure) ![License](https://img.shields.io/badge/License-MIT-%23326ce5)  
+![Version](https://img.shields.io/badge/release-v0.1.0-blue) ![Release date](https://img.shields.io/badge/release_date-november_2023-%23Clojure) ![License](https://img.shields.io/badge/License-MIT-%23326ce5)  
 ![Release date](https://img.shields.io/badge/nginx-1.25.5-%23Clojure) ![Docker](https://img.shields.io/badge/Docker-%230db7ed) ![ChatGPT](https://img.shields.io/badge/ChatGPT-74aa9c) ![LangChain](https://img.shields.io/badge/LangChain-0.1.16-%23EB0443) ![Python](https://img.shields.io/badge/Python-3.11.6-ffdd54) ![FastAPI](https://img.shields.io/badge/FastAPI-0.103.2-005571) ![React](https://img.shields.io/badge/React-17.0.2-%2361DAFB) ![MySQL](https://img.shields.io/badge/MySQL-8.0.28-%2300f)
 
 <img src="./assets/images/broken_chatbot_logo.png" width="70%">
   
 created by ChatGPT  
 
-Broken Chatbot is an application designed to verify vulnerabilities in LLM applications, including Prompt Injection, Prompt Leaking, P2SQL Injection and LLM4Shell.
+Broken Chatbot is an application designed to verify vulnerabilities in LLM (Large Language Model) applications, including Prompt Injection, Prompt Leaking, P2SQL Injection and LLM4Shell.
 
 |Note|
 |:---|
@@ -17,7 +17,7 @@ Broken Chatbot is an application designed to verify vulnerabilities in LLM appli
 ## Overview
 Utilizing LLM integration middleware like Flowise and LangChain facilitates the development of "LLM applications" that seamlessly integrate web applications, LLMs, and DBMSs. Consequently, there has been a noticeable increase in the number of LLM applications. Nevertheless, these applications present distinct attack surfaces compared to traditional web applications. As highlighted in the [OWASP Top 10 for LLM Applications](https://owasp.org/www-project-top-10-for-large-language-model-applications/), LLM applications are susceptible to a broad array of novel attack surfaces.  
 
-Consequently, should a Large Language Model (LLM) application be developed without incorporating cybersecurity considerations, it becomes vulnerable to attacks. Therefore, it is imperative for developers of LLM applications not only to address traditional security concerns but also to implement security measures specific to LLM applications in order to prevent or mitigate potential damages resulting from such attacks.  
+Consequently, should a LLM application be developed without incorporating cybersecurity considerations, it becomes vulnerable to attacks. Therefore, it is imperative for developers of LLM applications not only to address traditional security concerns but also to implement security measures specific to LLM applications in order to prevent or mitigate potential damages resulting from such attacks.  
 
 We have developed a LLM application named "Broken Chatbot," designed to facilitate LLM application developers' comprehension of vulnerabilities unique to such applications, alongside their respective countermeasures. "Broken Chatbot" embodies specific vulnerabilities inherent to LLM applications, including Prompt Injection, Prompt Leaking, P2SQL Injection and LLM4Shell. This platform allows developers to directly encounter these security issues, thereby enhancing their understanding of effective defensive strategies.  
 
@@ -34,8 +34,8 @@ The present version of Broken Chatbot exhibits the following vulnerabilities.
   - An attack involves the insertion of malicious prompts designed to manipulate the database management system of LLM application.  
   - P2SQL Injection constitutes an attack wherein a malicious prompt is inserted into an LLM application, such as a chatbot or virtual assistant that integrates with both the LLM and a DBMS, thereby manipulating the DBMS. Should a P2SQL Injection occur within an LLM application, it could lead to substantial damage, encompassing data theft, falsification, and deletion within the DBMS. For more information, see "[From Prompt Injections to SQL Injection Attacks: How Protected is Your LLM-Integrated Web Application?](https://arxiv.org/abs/2308.01990)" in arXiv.  
 - LLM4Shell
-   - An attack involves the insertion of malicious prompts designed to execute Remote Command Execution (RCE) within LLM application.  
-  - LLM4Shell constitutes an attack wherein a malicious prompt is inserted into an LLM application, such as a chatbot or virtual assistant, thereby Remote Command Execution (RCE). Should a LLM4Shell occur within LLM application, it could lead to substantial damage, encompassing data theft, falsification, deletion and Intrusion into the system. For more information, see "[LLM4Shell: Discovering and Exploiting RCE Vulnerabilities in Real-World LLM-Integrated Frameworks and Apps](https://www.blackhat.com/asia-24/briefings/schedule/index.html#llmshell-discovering-and-exploiting-rce-vulnerabilities-in-real-world-llm-integrated-frameworks-and-apps-37215)" in Black Hat ASIA 2024.  
+   - An attack involves the insertion of malicious prompts designed to execute Remote Code Execution (RCE) within LLM application.  
+  - LLM4Shell constitutes an attack wherein a malicious prompt is inserted into an LLM application, such as a chatbot or virtual assistant, thereby Remote Code Execution (RCE). Should a LLM4Shell occur within LLM application, it could lead to substantial damage, encompassing data theft, falsification, deletion and Intrusion into the system. For more information, see "[LLM4Shell: Discovering and Exploiting RCE Vulnerabilities in Real-World LLM-Integrated Frameworks and Apps](https://www.blackhat.com/asia-24/briefings/schedule/index.html#llmshell-discovering-and-exploiting-rce-vulnerabilities-in-real-world-llm-integrated-frameworks-and-apps-37215)" in Black Hat ASIA 2024.  
 
 ## Installation
 
@@ -141,7 +141,7 @@ Additionally, users have the option to alter the behavior of Broken Chatbot by s
 - LLM4Shell Lv.1
   - You can execute the `LLM4Shell`, enabling them to execute arbitrary Python code on the system where Broken Chatbot is running.   
 - LLM4Shell Lv.2
-  - You can execute the complex `LLM4Shell`, enabling them to execute `Remote Command Execution` (RCE) on the system where Broken Chatbot is running. In addition, you can execute intrusion into the system.
+  - You can execute the complex `LLM4Shell`, enabling them to execute `Remote Code Execution` (RCE) on the system where Broken Chatbot is running. In addition, you can execute intrusion into the system.
 
 ## License
 [MIT License](https://github.com/13o-bbr-bbq/Broken_LLM_Integration_App/blob/main/LICENSE)  
