@@ -7,7 +7,7 @@ import loadingAnimation from './assets/animations/three-dots.svg';
 function App() {
     const [inputMessage, setInputMessage] = useState('');
     const [chatLog, setChatLog] = useState([]);
-    const [apiUrl, setApiUrl] = useState('http://localhost:8000/prompt-leaking-lv1/');
+    const [apiUrl, setApiUrl] = useState('http://127.0.0.1:8000/prompt-leaking-lv1/');
     const [botIsTyping, setBotIsTyping] = useState(false);
     const chatLogRef = useRef(null);
 
@@ -71,11 +71,11 @@ function App() {
                     value={apiUrl}
                     onChange={e => setApiUrl(e.target.value)}
                 >
-                    <option value='http://localhost:8000/prompt-leaking-lv1/'>Leak Lv.1</option>
-                    <option value='http://localhost:8000/p2sql-injection-lv1/'>SQLi Lv.1</option>
-                    <option value='http://localhost:8000/p2sql-injection-lv2/'>SQLi Lv.2</option>
-                    <option value='http://localhost:8000/llm4shell-lv1/'>LLM4Shell Lv.1</option>
-                    <option value='http://localhost:8000/llm4shell-lv2/'>LLM4Shell Lv.2</option>
+                    <option value='http://127.0.0.1:8000/prompt-leaking-lv1/'>Leak Lv.1</option>
+                    <option value='http://127.0.0.1:8000/p2sql-injection-lv1/'>SQLi Lv.1</option>
+                    <option value='http://127.0.0.1:8000/p2sql-injection-lv2/'>SQLi Lv.2</option>
+                    <option value='http://127.0.0.1:8000/llm4shell-lv1/'>LLM4Shell Lv.1</option>
+                    <option value='http://127.0.0.1:8000/llm4shell-lv2/'>LLM4Shell Lv.2</option>
                 </select>
                 <button onClick={handleSubmit}>Send</button>
             </div>
