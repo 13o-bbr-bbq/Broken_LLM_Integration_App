@@ -98,7 +98,35 @@ Position the `.env` file you have created at the specified path below.
 Broken_LLM_Integration_App/chatapp/frontend/
 ```
 
-7. Importing Table Data.  
+7. Constructing the Broken Chatbot.  
+Execute the command below to assemble the Broken Chatbot.  
+
+```bash
+~$ Broken_LLM_Integration_App/chatapp/docker-compose build
+```
+
+8. Launch the Broken Chatbot.  
+Execute the command below to initiate the Broken Chatbot.  
+
+```bash
+~$ Broken_LLM_Integration_App/chatapp/docker-compose up
+```
+9. Access the Broken Chatbot.  
+Utilize a web browser to access the specified URL.  
+
+```bash
+http://your_host_name
+```
+
+Note:  
+BASIC authentication is required to access this application. the user name and password for BASIC authentication are as follows.
+```
+username: broken_chatbot
+password: KNBDSf+[<3\\HAKHw8:_rF=rZ78!W$Uo
+```
+The credentials should be used locally only. It should not be used with Broken Chatbot for the Internet!
+
+10. Importing Table Data.  
 The present version of Broken Chatbot retrieves data from the users table in a DBMS (MySQL).  
 Below is the structure of the users table.  
 
@@ -111,39 +139,65 @@ class User(Base):
     username = Column(String(50), unique=True, index=True)
     email = Column(String(100), unique=True, index=True)
     full_name = Column(String(100))
+    hashed_password = Column(String(100))
+    is_active = Column(Boolean, default=True)
+    is_superuser = Column(Boolean, default=False)
+
+
+class Chat(Base):
+    __tablename__ = "chats"
+
+    id = Column(Integer, Sequence("chat_id_seq"), primary_key=True)
+    name = Column(String(100), unique=True, index=True)
+    created_at = Column(Integer)
+    created_by = Column(Integer, ForeignKey("users.id"))
+
+
+class Message(Base):
+    __tablename__ = "messages"
+
+    id = Column(Integer, Sequence("message_id_seq"), primary_key=True)
+    chat_id = Column(Integer, ForeignKey("chats.id"))
+    user_id = Column(Integer, ForeignKey("users.id"))
+    content = Column(String(500))
+    timestamp = Column(Integer)
+
+
+class Membership(Base):
+    __tablename__ = "memberships"
+
+    id = Column(Integer, Sequence("membership_id_seq"), primary_key=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    chat_id = Column(Integer, ForeignKey("chats.id"))
+    role = Column(String(50))
+    joined_at = Column(Integer)
+
+
+class UserSettings(Base):
+    __tablename__ = "user_settings"
+
+    id = Column(Integer, Sequence("user_settings_id_seq"), primary_key=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    theme = Column(String(50))
+    notifications_enabled = Column(Boolean, default=True)
+    language = Column(String(50))
 ```
 
-Should you wish to import the sample data we have prepared into the users table, please utilize the following data:  
-[Sample data](./assets/sample_data/broken_chatbot_users.csv)  
+Should you wish to import the sample data we have prepared into tables, please utilize the following data:  
+[Sample data](./assets/sample_data/)  
 
-8. Constructing the Broken Chatbot.  
-Execute the command below to assemble the Broken Chatbot.  
+You can import these data from phpmyadmin.  
 
-```bash
-~$ Broken_LLM_Integration_App/chatapp/docker-compose build
+```
+http://your_host_name:8080
 ```
 
-9. Launch the Broken Chatbot.  
-Execute the command below to initiate the Broken Chatbot.  
+The credentials for phpmyadmin are as follows.  
 
-```bash
-~$ Broken_LLM_Integration_App/chatapp/docker-compose up
 ```
-
-10. Access the Broken Chatbot.  
-Utilize a web browser to access the specified URL.  
-
-```bash
-http://your_host_name
+username: root
+password: root
 ```
-
-Note:  
-BASIC authentication is required to access this application. the user name and password for BASIC authentication are as follows.
-```
-broken_chatbot
-KNBDSf+[<3\\HAKHw8:_rF=rZ78!W$Uo
-```
-The credentials should be used locally only. It should not be used with Broken Chatbot for the Internet!
 
 ## Usage
 The diagram below illustrates the user interface of the Broken Chatbot.  
