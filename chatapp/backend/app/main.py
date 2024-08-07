@@ -4,13 +4,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from .models import Message, LLMResponse
 from .llm_agent import *
 from .db_settings import Base, engine
+from . import db_models
 from .filters import input_filter, output_filter
 
 # Application.
 app = FastAPI()
-
-# Create tables.
-Base.metadata.create_all(bind=engine)
 
 origins = ["*"]
 app.add_middleware(
@@ -20,6 +18,12 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.on_event("startup")
+def startup_event():
+    # Create tables.
+    Base.metadata.create_all(bind=engine)
 
 
 @app.get("/healthcheck")
