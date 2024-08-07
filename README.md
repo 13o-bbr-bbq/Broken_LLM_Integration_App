@@ -51,8 +51,8 @@ Execute the command below to clone the Broken Chatbot repository into your local
 ~$ git clone https://github.com/13o-bbr-bbq/Broken_LLM_Integration_App.git
 ```
 
-3. Create a `.env` file.  
-Construct a configuration file for the Broken Chatbot.  
+3. Create a `.env` file for backend.  
+Construct a configuration file for backend of Broken Chatbot.  
 Refer to the example provided below.  
 
 ```bash
@@ -76,14 +76,29 @@ This information can be procured from the website listed below.
 
 [https://platform.openai.com/](https://platform.openai.com/)
 
-4. Placement of `.env` file.  
+4. Placement of `.env` file created in step 3.  
 Position the `.env` file you have created at the specified path below.  
 
 ```bash
 Broken_LLM_Integration_App/chatapp/backend/
 ```
 
-5. Importing Table Data.  
+5. Create a `.env` file for frontend.  
+Construct a configuration file for frontend of Broken Chatbot.  
+Refer to the example provided below.  
+
+```bash
+REACT_APP_HOST_NAME=your_host_name
+```
+
+6. Placement of `.env` file created in step 5.  
+Position the `.env` file you have created at the specified path below.  
+
+```bash
+Broken_LLM_Integration_App/chatapp/frontend/
+```
+
+7. Importing Table Data.  
 The present version of Broken Chatbot retrieves data from the users table in a DBMS (MySQL).  
 Below is the structure of the users table.  
 
@@ -101,25 +116,34 @@ class User(Base):
 Should you wish to import the sample data we have prepared into the users table, please utilize the following data:  
 [Sample data](./assets/sample_data/broken_chatbot_users.csv)  
 
-6. Constructing the Broken Chatbot.  
+8. Constructing the Broken Chatbot.  
 Execute the command below to assemble the Broken Chatbot.  
 
 ```bash
 ~$ Broken_LLM_Integration_App/chatapp/docker-compose build
 ```
 
-7. Launch the Broken Chatbot.  
+9. Launch the Broken Chatbot.  
 Execute the command below to initiate the Broken Chatbot.  
 
 ```bash
 ~$ Broken_LLM_Integration_App/chatapp/docker-compose up
 ```
-8. Access the Broken Chatbot.  
+
+10. Access the Broken Chatbot.  
 Utilize a web browser to access the specified URL.  
 
 ```bash
-http://localhost
+http://your_host_name
 ```
+
+Note:  
+BASIC authentication is required to access this application. the user name and password for BASIC authentication are as follows.
+```
+broken_chatbot
+KNBDSf+[<3\\HAKHw8:_rF=rZ78!W$Uo
+```
+The credentials should be used locally only. It should not be used with Broken Chatbot for the Internet!
 
 ## Usage
 The diagram below illustrates the user interface of the Broken Chatbot.  
