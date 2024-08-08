@@ -16,6 +16,8 @@ COPY ./requirements.txt .
 RUN pip install --upgrade pip && \
     pip install -r requirements.txt
 
+COPY ./secret.md .
+
 # Copy project.
 COPY . $APP_HOME
 
