@@ -199,6 +199,14 @@ username: root
 password: root
 ```
 
+Note:  
+You import the table data in the following order.
+1. users.csv
+2. user_settings.csv
+3. chats.csv
+4. memberships.csv
+5. messages.csv
+
 ## Usage
 The diagram below illustrates the user interface of the Broken Chatbot.  
 
