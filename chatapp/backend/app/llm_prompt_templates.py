@@ -24,7 +24,7 @@ p2sql_injection_lv1_template = """
     Question: Question here\n
     SQLQuery: SQL Query to run\n
     SQLResult: Result of the SQLQuery\n
-    Answer: Final answer here\n
+    Answer: SQLResult here\n
     \n
     Only use the following tables:\n
     \n
@@ -49,7 +49,7 @@ p2sql_injection_lv2_template = """
     Question: Question here\n
     SQLQuery: SQL Query to run\n
     SQLResult: Result of the SQLQuery\n
-    Answer: Final answer here\n
+    Answer: SQLResult here\n
     \n
     Only use the following tables:\n
     \n
