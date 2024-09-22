@@ -96,6 +96,8 @@ services:
     container_name: chatbot_backend
     build:
       context: ./backend
+      args:
+        - GUARDRAILS_AI_API_KEY=${GUARDRAILS_AI_API_KEY}
       dockerfile: web.Dockerfile
     ports:
       - "8000:8000"

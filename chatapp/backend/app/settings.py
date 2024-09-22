@@ -7,7 +7,7 @@ class Config(BaseSettings):
         env_file_encoding = 'utf-8'
 
 
-# Setting.
+    # Setting.
 class Settings(Config):
     # MySQL.
     DB_USERNAME: str
@@ -25,6 +25,9 @@ class Settings(Config):
     OPENAI_MAX_TOKENS: int
     OPENAI_TEMPERATURE: float
     OPENAI_VERBOSE: bool
+
+    # Guardrails AI
+    GUARDRAILS_AI_API_KEY: str
 
 
 settings = Settings()

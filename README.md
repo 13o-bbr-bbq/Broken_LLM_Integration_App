@@ -68,6 +68,9 @@ OPENAI_MODEL_NAME=your_model_name
 OPENAI_MAX_TOKENS=256
 OPENAI_TEMPERATURE=0.9
 OPENAI_VERBOSE=true
+
+# Guardrails AI
+GUARDRAILS_AI_API_KEY=your_guardrails_ai_api_key
 ```
 
 `your_api_key` represents your OpenAI API Key, while `your_model_name` denotes the model name of OpenAI's GPT.  
@@ -75,6 +78,10 @@ Consequently, both `your_api_key` and `your_model_name` ought to correspond to y
 This information can be procured from the website listed below.
 
 [https://platform.openai.com/](https://platform.openai.com/)
+
+Also, set your Guardrails AI API Key in `your_guardrails_ai_api_key`. The Guardrails AI API Key can be procured from the website listed below.  
+
+[https://hub.guardrailsai.com/](https://hub.guardrailsai.com/)
 
 4. Placement of `.env` file created in step 3.  
 Position the `.env` file you have created at the specified path below.  
@@ -102,14 +109,14 @@ Broken_LLM_Integration_App/chatapp/frontend/
 Execute the command below to assemble the Broken Chatbot.  
 
 ```bash
-~$ Broken_LLM_Integration_App/chatapp/docker-compose build
+~$ Broken_LLM_Integration_App/chatapp/docker compose --env-file ./backend/.env build
 ```
 
 8. Launch the Broken Chatbot.  
 Execute the command below to initiate the Broken Chatbot.  
 
 ```bash
-~$ Broken_LLM_Integration_App/chatapp/docker-compose up
+~$ Broken_LLM_Integration_App/chatapp/docker compose up
 ```
 9. Access the Broken Chatbot.  
 Utilize a web browser to access the specified URL.  

@@ -16,6 +16,13 @@ COPY ./requirements.txt .
 RUN pip install --upgrade pip && \
     pip install -r requirements.txt
 
+# Guardrail AI.
+ARG GUARDRAILS_AI_API_KEY
+ENV GUARDRAILS_AI_API_KEY=${GUARDRAILS_AI_API_KEY}
+RUN guardrails configure --token $GUARDRAILS_AI_API_KEY
+RUN guardrails hub install hub://guardrails/regex_match
+RUN guardrails hub install hub://guardrails/detect_pii
+
 COPY ./secret.md .
 
 # Copy project.

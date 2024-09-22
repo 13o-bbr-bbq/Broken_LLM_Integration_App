@@ -12,7 +12,7 @@ def p2sql_injection_lv1(question: str) -> str:
     try:
         prompt = p2sql_injection_lv1_template.format(
             top_k=5,
-            table_info="users",
+            table_info="users, chats, memberships, messages, user_settings",
             question=question
         )
         answer = create_db_chain().run(prompt)
@@ -26,7 +26,7 @@ def p2sql_injection_lv2(question: str) -> str:
     try:
         prompt = p2sql_injection_lv2_template.format(
             top_k=5,
-            table_info="users",
+            table_info="users, chats, memberships, messages, user_settings",
             question=question
         )
         answer = create_db_chain().run(prompt)
