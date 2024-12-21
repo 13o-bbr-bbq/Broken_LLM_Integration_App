@@ -225,16 +225,20 @@ To initiate a conversation, users must enter a prompt in the input field labeled
 
 Additionally, users have the option to alter the behavior of Broken Chatbot by selecting from a dropdown menu located to the left of the "Send" button. The current version of Broken Chatbot offers the following modes:  
 
-- Leak Lv.1  
+- Leak Lv.1 (No defense)
   - You can execute the `Prompt Leaking`, enabling them to attempt theft of the `System Template` of Broken Chatbot by malicious prompts (`Prompt Injection`).  
-- SQLi Lv.1  
+- SQLi Lv.1 (No defense)
   - You can execute the `P2SQL Injection`, enabling them to attempt data theft, data tampering and deletion from the 'users' table which Broken Chatbot is connected by malicious prompts (`Prompt Injection`).  
-- SQLi Lv.2  
+- SQLi Lv.2 (Defensive system template)
   - In this mode, the challenge intensifies through a more complex `P2SQL injection`. Here, the Broken Chatbot is programmed with a defensive system template designed to prevent data theft, tampering, or deletion. Nevertheless, you may attempt to circumvent these protective measures using `Prompt Injection`, potentially leading to data theft, tampering, or deletion in the users' table.
-- LLM4Shell Lv.1
+- SQLi Lv.3 (Defensive system template using prompt-hardener)
+  - In this mode, the challenge intensifies through a more complex `P2SQL injection`. Here, the Broken Chatbot is programmed with a prompt-hardener (https://github.com/cybozu/prompt-hardener) designed to prevent data theft, tampering, or deletion. Nevertheless, you may attempt to circumvent these protective measures using `Prompt Injection`, potentially leading to data theft, tampering, or deletion in the users' table.
+- LLM4Shell Lv.1 (No defense with simple calculation)
   - You can execute the `LLM4Shell`, enabling them to execute arbitrary Python code on the system where Broken Chatbot is running.   
-- LLM4Shell Lv.2
+- LLM4Shell Lv.2 (No defense with complex calculation)
   - You can execute the complex `LLM4Shell`, enabling them to execute `Remote Code Execution` (RCE) on the system where Broken Chatbot is running. In addition, you can execute intrusion into the system.
+- LLM4Shell Lv.3 (Defensive system template using prompt-hardener)
+  - You can execute the complex `LLM4Shell`, enabling them to execute `Remote Code Execution` (RCE) on the system where Broken Chatbot is running. In addition, you can execute intrusion into the system. However, in this mode, Broken Chatbot is protected with prompt-hardener (https://github.com/cybozu/prompt-hardener) designed to prevent data theft, tampering, or deletion.
 
 ## License
 [MIT License](https://github.com/13o-bbr-bbq/Broken_LLM_Integration_App/blob/main/LICENSE)  
