@@ -72,11 +72,13 @@ function App() {
                     value={apiUrl}
                     onChange={e => setApiUrl(e.target.value)}
                 >
-                    <option value={`http://${hostname}:8000/prompt-leaking-lv1/`}>Leak Lv.1</option>
-                    <option value={`http://${hostname}:8000/p2sql-injection-lv1/`}>SQLi Lv.1</option>
-                    <option value={`http://${hostname}:8000/p2sql-injection-lv2/`}>SQLi Lv.2</option>
-                    <option value={`http://${hostname}:8000/llm4shell-lv1/`}>LLM4Shell Lv.1</option>
-                    <option value={`http://${hostname}:8000/llm4shell-lv2/`}>LLM4Shell Lv.2</option>
+                    <option value={`http://${hostname}:8000/prompt-leaking-lv1/`}>Leak Lv.1 (non defense)</option>
+                    <option value={`http://${hostname}:8000/p2sql-injection-lv1/`}>SQLi Lv.1 (non defense)</option>
+                    <option value={`http://${hostname}:8000/p2sql-injection-lv2/`}>SQLi Lv.2 (defensive system prompt)</option>
+                    <option value={`http://${hostname}:8000/p2sql-injection-lv3/`}>SQLi Lv.3 (prompt hardener)</option>
+                    <option value={`http://${hostname}:8000/llm4shell-lv1/`}>LLM4Shell Lv.1 (shell chain math prompt)</option>
+                    <option value={`http://${hostname}:8000/llm4shell-lv2/`}>LLM4Shell Lv.2 (shell chain native)</option>
+                    <option value={`http://${hostname}:8000/llm4shell-lv3/`}>LLM4Shell Lv.3 (prompt hardener)</option>
                 </select>
                 <button onClick={handleSubmit}>Send</button>
             </div>

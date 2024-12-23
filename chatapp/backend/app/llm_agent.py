@@ -1,3 +1,5 @@
+import uuid
+
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 
@@ -35,6 +37,21 @@ def p2sql_injection_lv2(question: str) -> str:
         return f"Error: {', '.join(map(str, e.args))}"
 
 
+# Ask questions to the LLM using Database. This level is implemented prompt hardener.
+def p2sql_injection_lv3(question: str) -> str:
+    try:
+        prompt = p2sql_injection_lv3_template.format(
+            top_k=5,
+            table_info="users, chats, memberships, messages, user_settings",
+            question=question,
+            SECURE_TAG=uuid.uuid4()
+        )
+        answer = create_db_chain().run(prompt)
+        return ','.join(answer) if isinstance(answer, list) else str(answer)
+    except Exception as e:
+        return f"Error: {', '.join(map(str, e.args))}"
+
+
 # Ask questions to the LLM.
 def prompt_leaking_lv1(question: str) -> str:
     prompt = PromptTemplate(template=prompt_leaking_lv1_template, input_variables=["question"])
@@ -58,6 +75,16 @@ def llm4shell_lv2(question: str) -> str:
     try:
         prompt_template = PromptTemplate(template=llm4shell_template, input_variables=["question"])
         answer = create_shell_chain_native(prompt_template, question)
+        return answer if isinstance(answer, dict) else str(answer)
+    except Exception as e:
+        return f"Error in ask_question_shell: {', '.join(map(str, e.args))}"
+
+
+# Ask questions to the LLM using system files. This level is implemented prompt hardener.
+def llm4shell_lv3(question: str) -> str:
+    try:
+        prompt_template = PromptTemplate(template=llm4shell_lv3_template, input_variables=["question", "random_salt"])
+        answer = create_shell_chain_native(prompt_template, {"question": question, "random_salt": uuid.uuid4()})
         return answer if isinstance(answer, dict) else str(answer)
     except Exception as e:
         return f"Error in ask_question_shell: {', '.join(map(str, e.args))}"
