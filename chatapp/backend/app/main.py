@@ -40,6 +40,24 @@ async def api_prompt_leaking_lv1(message: Message = Depends(input_filter)) -> LL
         return LLMResponse(text=f"Error: {', '.join(map(str, e.args))}")
 
 
+@app.post("/prompt-leaking-lv2")
+async def api_prompt_leaking_lv2(message: Message = Depends(input_filter)) -> LLMResponse:
+    try:
+        answer = prompt_leaking_lv2(message.text)
+        return LLMResponse(text=output_filter(answer))
+    except Exception as e:
+        return LLMResponse(text=f"Error: {', '.join(map(str, e.args))}")
+
+
+@app.post("/prompt-leaking-lv3")
+async def api_prompt_leaking_lv3(message: Message = Depends(input_filter)) -> LLMResponse:
+    try:
+        answer = await prompt_leaking_lv3(message.text)
+        return LLMResponse(text=output_filter(answer))
+    except Exception as e:
+        return LLMResponse(text=f"Error: {', '.join(map(str, e.args))}")
+
+
 @app.post("/p2sql-injection-lv1")
 async def api_p2sql_injection_lv1(message: Message = Depends(input_filter)) -> LLMResponse:
     try:
@@ -67,6 +85,15 @@ async def api_p2sql_injection_lv3(message: Message = Depends(input_filter)) -> L
         return LLMResponse(text=f"Error: {', '.join(map(str, e.args))}")
 
 
+@app.post("/p2sql-injection-lv4")
+async def api_p2sql_injection_lv4(message: Message = Depends(input_filter)) -> LLMResponse:
+    try:
+        answer = p2sql_injection_lv4(message.text)
+        return LLMResponse(text=output_filter(answer))
+    except Exception as e:
+        return LLMResponse(text=f"Error: {', '.join(map(str, e.args))}")
+
+
 @app.post("/llm4shell-lv1")
 async def api_llm4shell_lv1(message: Message = Depends(input_filter)) -> LLMResponse:
     try:
@@ -89,6 +116,15 @@ async def api_llm4shell_lv2(message: Message = Depends(input_filter)) -> LLMResp
 async def api_llm4shell_lv3(message: Message = Depends(input_filter)) -> LLMResponse:
     try:
         answer = llm4shell_lv3(message.text)
+        return LLMResponse(text=output_filter(answer))
+    except Exception as e:
+        return LLMResponse(text=f"Error: {', '.join(map(str, e.args))}")
+
+
+@app.post("/llm4shell-lv4")
+async def api_llm4shell_lv4(message: Message = Depends(input_filter)) -> LLMResponse:
+    try:
+        answer = llm4shell_lv4(message.text)
         return LLMResponse(text=output_filter(answer))
     except Exception as e:
         return LLMResponse(text=f"Error: {', '.join(map(str, e.args))}")

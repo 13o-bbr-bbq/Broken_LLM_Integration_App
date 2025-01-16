@@ -26,8 +26,5 @@ class Settings(Config):
     OPENAI_TEMPERATURE: float
     OPENAI_VERBOSE: bool
 
-    # Guardrails AI
-    GUARDRAILS_AI_API_KEY: str
-
 
 settings = Settings()

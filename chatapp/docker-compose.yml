@@ -97,7 +97,7 @@ services:
     build:
       context: ./backend
       args:
-        - GUARDRAILS_AI_API_KEY=${GUARDRAILS_AI_API_KEY}
+        - OPENAI_API_KEY=${OPENAI_API_KEY}
       dockerfile: web.Dockerfile
     ports:
       - "8000:8000"
