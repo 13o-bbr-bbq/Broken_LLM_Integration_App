@@ -1,0 +1,16 @@
+define bot refuse to respond
+  "Blocked by NeMo-Guardrails."
+
+define flow self check input
+  $is_safe = execute self_check_input
+
+  if not $is_safe
+    bot refuse to respond
+    stop
+
+define flow self check output
+  $is_safe = execute self_check_output
+
+  if not $is_safe
+    bot refuse to respond
+    stop

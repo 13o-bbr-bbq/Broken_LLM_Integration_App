@@ -1,10 +1,8 @@
 # Broken Chatbot
-![Version](https://img.shields.io/badge/release-v0.1.0-blue) ![Release date](https://img.shields.io/badge/release_date-november_2023-%23Clojure) ![License](https://img.shields.io/badge/License-MIT-%23326ce5)  
-![Release date](https://img.shields.io/badge/nginx-1.25.5-%23Clojure) ![Docker](https://img.shields.io/badge/Docker-%230db7ed) ![ChatGPT](https://img.shields.io/badge/ChatGPT-74aa9c) ![LangChain](https://img.shields.io/badge/LangChain-0.1.16-%23EB0443) ![Python](https://img.shields.io/badge/Python-3.11.6-ffdd54) ![FastAPI](https://img.shields.io/badge/FastAPI-0.103.2-005571) ![React](https://img.shields.io/badge/React-17.0.2-%2361DAFB) ![MySQL](https://img.shields.io/badge/MySQL-8.0.28-%2300f)
+![Version](https://img.shields.io/badge/release-20250117-blue) ![Release date](https://img.shields.io/badge/release_date-november_2023-%23Clojure) ![License](https://img.shields.io/badge/License-MIT-%23326ce5)  
+![Release date](https://img.shields.io/badge/nginx-1.25.5-%23Clojure) ![Docker](https://img.shields.io/badge/Docker-%230db7ed) ![ChatGPT](https://img.shields.io/badge/ChatGPT-74aa9c) ![LangChain](https://img.shields.io/badge/LangChain-0.3.0-%23EB0443) ![Python](https://img.shields.io/badge/Python-3.11.6-ffdd54) ![FastAPI](https://img.shields.io/badge/FastAPI-0.103.2-005571) ![React](https://img.shields.io/badge/React-17.0.2-%2361DAFB) ![MySQL](https://img.shields.io/badge/MySQL-8.0.28-%2300f)
 
 <img src="./assets/images/broken_chatbot_logo.png" width="70%">
-  
-created by ChatGPT  
 
 Broken Chatbot is an application designed to verify vulnerabilities in LLM (Large Language Model) applications, including Prompt Injection, Prompt Leaking, P2SQL Injection and LLM4Shell.
 
@@ -13,6 +11,11 @@ Broken Chatbot is an application designed to verify vulnerabilities in LLM (Larg
 |This LLM application is highly vulnerable and ought to be utilized solely within a local environment; it should never be made public.|
 
 ---
+
+## Latest Updates
+- Implementation of a defense mechanism using [Prompt Hardener](https://github.com/cybozu/prompt-hardener).
+- Implementation of a defense mechanism using [NeMo-Guardrails](https://github.com/NVIDIA/NeMo-Guardrails).
+- Implementation of a defense mechanism using LLM-as-a-Judge.
 
 ## Overview
 Utilizing LLM integration middleware like Flowise and LangChain facilitates the development of "LLM applications" that seamlessly integrate web applications, LLMs, and DBMSs. Consequently, there has been a noticeable increase in the number of LLM applications. Nevertheless, these applications present distinct attack surfaces compared to traditional web applications. As highlighted in the [OWASP Top 10 for LLM Applications](https://owasp.org/www-project-top-10-for-large-language-model-applications/), LLM applications are susceptible to a broad array of novel attack surfaces.  
@@ -68,9 +71,6 @@ OPENAI_MODEL_NAME=your_model_name
 OPENAI_MAX_TOKENS=256
 OPENAI_TEMPERATURE=0.9
 OPENAI_VERBOSE=true
-
-# Guardrails AI
-GUARDRAILS_AI_API_KEY=your_guardrails_ai_api_key
 ```
 
 `your_api_key` represents your OpenAI API Key, while `your_model_name` denotes the model name of OpenAI's GPT.  
@@ -79,10 +79,6 @@ This information can be procured from the website listed below.
 
 [https://platform.openai.com/](https://platform.openai.com/)
 
-Also, set your Guardrails AI API Key in `your_guardrails_ai_api_key`. The Guardrails AI API Key can be procured from the website listed below.  
-
-[https://hub.guardrailsai.com/](https://hub.guardrailsai.com/)
-
 4. Placement of `.env` file created in step 3.  
 Position the `.env` file you have created at the specified path below.  
 
@@ -90,7 +86,13 @@ Position the `.env` file you have created at the specified path below.
 Broken_LLM_Integration_App/chatapp/backend/
 ```
 
-5. Create a `.env` file for frontend.  
+5. Set the OpenAI API Key as an environment variable for NeMo-Guardrails.
+
+```bash
+~$ Broken_LLM_Integration_App/chatapp/export OPENAI_API_KEY=your_api_key
+```
+
+6. Create a `.env` file for frontend.  
 Construct a configuration file for frontend of Broken Chatbot.  
 Refer to the example provided below.  
 
@@ -98,27 +100,28 @@ Refer to the example provided below.
 REACT_APP_HOST_NAME=your_host_name
 ```
 
-6. Placement of `.env` file created in step 5.  
+7. Placement of `.env` file created in step 5.  
 Position the `.env` file you have created at the specified path below.  
 
 ```bash
 Broken_LLM_Integration_App/chatapp/frontend/
 ```
 
-7. Constructing the Broken Chatbot.  
+8. Constructing the Broken Chatbot.  
 Execute the command below to assemble the Broken Chatbot.  
 
 ```bash
 ~$ Broken_LLM_Integration_App/chatapp/docker compose --env-file ./backend/.env build
 ```
 
-8. Launch the Broken Chatbot.  
+9. Launch the Broken Chatbot.  
 Execute the command below to initiate the Broken Chatbot.  
 
 ```bash
 ~$ Broken_LLM_Integration_App/chatapp/docker compose up
 ```
-9. Access the Broken Chatbot.  
+
+10. Access the Broken Chatbot.  
 Utilize a web browser to access the specified URL.  
 
 ```bash
@@ -133,7 +136,7 @@ password: KNBDSf+[<3\\HAKHw8:_rF=rZ78!W$Uo
 ```
 The credentials should be used locally only. It should not be used with Broken Chatbot for the Internet!
 
-10. Importing Table Data.  
+11. Importing Table Data.  
 The present version of Broken Chatbot retrieves data from the users table in a DBMS (MySQL).  
 Below is the structure of the users table.  
 
@@ -226,19 +229,27 @@ To initiate a conversation, users must enter a prompt in the input field labeled
 Additionally, users have the option to alter the behavior of Broken Chatbot by selecting from a dropdown menu located to the left of the "Send" button. The current version of Broken Chatbot offers the following modes:  
 
 - Leak Lv.1 (No defense)
-  - You can execute the `Prompt Leaking`, enabling them to attempt theft of the `System Template` of Broken Chatbot by malicious prompts (`Prompt Injection`).  
+  - You can execute the `Prompt Leaking`, enabling them to attempt theft of the `System Template` of Broken Chatbot by malicious prompts (`Prompt Injection`).
+- Leak Lv.2 (Defense using Prompt Hardener)
+  - You can execute the `Prompt Leaking`, enabling them to attempt theft of the `System Template` of Broken Chatbot by malicious prompts (`Prompt Injection`). Here, the Broken Chatbot is programmed with a prompt-hardener (https://github.com/cybozu/prompt-hardener) designed to prevent system prompt theft.   
+- Leak Lv.3 (Defense using NeMo-Guardrails)
+  - You can execute the `Prompt Leaking`, enabling them to attempt theft of the `System Template` of Broken Chatbot by malicious prompts (`Prompt Injection`). Here, the Broken Chatbot is programmed with a NeMo-Guardrails(https://github.com/NVIDIA/NeMo-Guardrails) designed to prevent system prompt theft.   
 - SQLi Lv.1 (No defense)
   - You can execute the `P2SQL Injection`, enabling them to attempt data theft, data tampering and deletion from the 'users' table which Broken Chatbot is connected by malicious prompts (`Prompt Injection`).  
-- SQLi Lv.2 (Defensive system template)
+- SQLi Lv.2 (Defense using defensive system template)
   - In this mode, the challenge intensifies through a more complex `P2SQL injection`. Here, the Broken Chatbot is programmed with a defensive system template designed to prevent data theft, tampering, or deletion. Nevertheless, you may attempt to circumvent these protective measures using `Prompt Injection`, potentially leading to data theft, tampering, or deletion in the users' table.
-- SQLi Lv.3 (Defensive system template using prompt-hardener)
+- SQLi Lv.3 (Defense using Prompt Hardener)
   - In this mode, the challenge intensifies through a more complex `P2SQL injection`. Here, the Broken Chatbot is programmed with a prompt-hardener (https://github.com/cybozu/prompt-hardener) designed to prevent data theft, tampering, or deletion. Nevertheless, you may attempt to circumvent these protective measures using `Prompt Injection`, potentially leading to data theft, tampering, or deletion in the users' table.
+- SQLi Lv.4 (Defense using LLM-as-a-Judge)
+  - In this mode, the challenge intensifies through a more complex `P2SQL injection`. Here, the Broken Chatbot is programmed with a LLM-as-a-Judge designed to prevent data theft, tampering, or deletion. Nevertheless, you may attempt to circumvent these protective measures using `Prompt Injection`, potentially leading to data theft, tampering, or deletion in the users' table.
 - LLM4Shell Lv.1 (No defense with simple calculation)
   - You can execute the `LLM4Shell`, enabling them to execute arbitrary Python code on the system where Broken Chatbot is running.   
 - LLM4Shell Lv.2 (No defense with complex calculation)
   - You can execute the complex `LLM4Shell`, enabling them to execute `Remote Code Execution` (RCE) on the system where Broken Chatbot is running. In addition, you can execute intrusion into the system.
-- LLM4Shell Lv.3 (Defensive system template using prompt-hardener)
+- LLM4Shell Lv.3 (Defense using Prompt Hardener)
   - You can execute the complex `LLM4Shell`, enabling them to execute `Remote Code Execution` (RCE) on the system where Broken Chatbot is running. In addition, you can execute intrusion into the system. However, in this mode, Broken Chatbot is protected with prompt-hardener (https://github.com/cybozu/prompt-hardener) designed to prevent data theft, tampering, or deletion.
+- LLM4Shell Lv.4 (Defense using LLM-as-a-Judge)
+  - You can execute the complex `LLM4Shell`, enabling them to execute `Remote Code Execution` (RCE) on the system where Broken Chatbot is running. In addition, you can execute intrusion into the system. However, in this mode, Broken Chatbot is protected with LLM-as-a-Judge designed to prevent data theft, tampering, or deletion.
 
 ## License
 [MIT License](https://github.com/13o-bbr-bbq/Broken_LLM_Integration_App/blob/main/LICENSE)  

@@ -13,3 +13,8 @@ def create_db_chain():
         db=db,
         verbose=True
     )
+
+# Execute SQL query.
+def run_sql_chain(query: str) -> str:
+    db_chain = create_db_chain()
+    return db_chain.run(query)

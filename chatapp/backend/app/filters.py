@@ -1,15 +1,4 @@
-from guardrails.hub import RegexMatch, DetectPII
-from guardrails import Guard
-
 from .models import Message
-
-# Use the Guard with the validator (samples).
-pii_output_guard = Guard().use(
-    DetectPII, ["EMAIL_ADDRESS"], "exception"
-)
-regex_output_guard = Guard().use(
-    RegexMatch, regex="dt5\-ctf\:.*", on_fail="exception"
-)
 
 
 # Input validator.

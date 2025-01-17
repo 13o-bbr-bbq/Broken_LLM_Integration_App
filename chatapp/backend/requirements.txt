@@ -2,21 +2,18 @@
 fastapi==0.103.2
 uvicorn==0.23.2
 gunicorn==21.2.0
-pydantic==2.4.2
-pydantic-settings==2.0.3
+pydantic==2.7.4
+pydantic-settings==2.7.1
 
 # Database
 sqlalchemy==2.0.21
 pymysql==1.1.0
 
 # LLM
-langchain==0.1.16
-langchain_experimental==0.0.57
-langchain-openai==0.1.5
-openai==1.25.0
+langchain==0.3.0
+langchain_experimental==0.3.0
+langchain-openai
+openai
 
 # Defense
-guardrails-ai
-presidio-analyzer
-presidio-anonymizer
-nltk
+nemoguardrails==0.11.0
