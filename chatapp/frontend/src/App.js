@@ -72,17 +72,20 @@ function App() {
                     value={apiUrl}
                     onChange={e => setApiUrl(e.target.value)}
                 >
-                    <option value={`http://${hostname}:8000/prompt-leaking-lv1/`}>Leak Lv.1 (non defense)</option>
-                    <option value={`http://${hostname}:8000/prompt-leaking-lv2/`}>Leak Lv.2 (prompt hardener)</option>
-                    <option value={`http://${hostname}:8000/prompt-leaking-lv3/`}>Leak Lv.3 (NeMo-Guardrails)</option>
-                    <option value={`http://${hostname}:8000/p2sql-injection-lv1/`}>SQLi Lv.1 (non defense)</option>
-                    <option value={`http://${hostname}:8000/p2sql-injection-lv2/`}>SQLi Lv.2 (defensive system prompt)
+                    <option value={`http://${hostname}:8000/prompt-leaking-lv1/`}>Leak Lv.1 (no guard)</option>
+                    <option value={`http://${hostname}:8000/prompt-leaking-lv2/`}>Leak Lv.2 (input/output regex filter)
                     </option>
-                    <option value={`http://${hostname}:8000/p2sql-injection-lv3/`}>SQLi Lv.3 (prompt hardener)</option>
-                    <option value={`http://${hostname}:8000/p2sql-injection-lv4/`}>SQLi Lv.4 (LLM-as-a-Judge)</option>
-                    <option value={`http://${hostname}:8000/llm4shell-lv1/`}>LLM4Shell Lv.1 (shell chain math prompt)
+                    <option value={`http://${hostname}:8000/prompt-leaking-lv3/`}>Leak Lv.3 (prompt hardener)</option>
+                    <option value={`http://${hostname}:8000/prompt-leaking-lv4/`}>Leak Lv.4 (NeMo-Guardrails)</option>
+                    <option value={`http://${hostname}:8000/p2sql-injection-lv1/`}>SQLi Lv.1 (no guard)</option>
+                    <option value={`http://${hostname}:8000/p2sql-injection-lv2/`}>SQLi Lv.2 (input/output regex filter)</option>
+                    <option value={`http://${hostname}:8000/p2sql-injection-lv3/`}>SQLi Lv.3 (defensive system prompt)
                     </option>
-                    <option value={`http://${hostname}:8000/llm4shell-lv2/`}>LLM4Shell Lv.2 (shell chain native)
+                    <option value={`http://${hostname}:8000/p2sql-injection-lv4/`}>SQLi Lv.4 (prompt hardener)</option>
+                    <option value={`http://${hostname}:8000/p2sql-injection-lv5/`}>SQLi Lv.5 (LLM-as-a-Judge)</option>
+                    <option value={`http://${hostname}:8000/llm4shell-lv1/`}>LLM4Shell Lv.1 (no guard)
+                    </option>
+                    <option value={`http://${hostname}:8000/llm4shell-lv2/`}>LLM4Shell Lv.2 (input/output regex filter)
                     </option>
                     <option value={`http://${hostname}:8000/llm4shell-lv3/`}>LLM4Shell Lv.3 (prompt hardener)</option>
                     <option value={`http://${hostname}:8000/llm4shell-lv4/`}>LLM4Shell Lv.4 (LLM-as-a-Judge)</option>
