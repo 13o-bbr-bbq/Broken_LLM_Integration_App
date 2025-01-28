@@ -1,23 +1,23 @@
 from .models import Message
+from .blacklists import INPUT_BLACKLIST, OUTPUT_BLACKLIST, contains_blacklisted_pattern
 
 
 # Input validator.
 def input_filter(message: Message) -> Message:
-    # Please write your input validation codes here.
     filtered_text = ''
-    try:
-        filtered_text = message.text
-    except Exception as e:
-        filtered_text = 'Input validation error: Your instruction is invalid.'
+    user_text = message.text or ""
+    if contains_blacklisted_pattern(user_text, INPUT_BLACKLIST):
+        raise ValueError('Blocked by input filter. (Potential malicious request)')
+    else:
+        filtered_text = user_text
     return Message(text=filtered_text)
 
 
 # Output validator.
 def output_filter(answer_text: str) -> str:
-    # Please write your output validation codes here.
     filtered_text = ''
-    try:
+    if contains_blacklisted_pattern(answer_text, OUTPUT_BLACKLIST):
+        raise ValueError('Blocked by output filter. (Potential data leak)')
+    else:
         filtered_text = answer_text
-    except Exception as e:
-        filtered_text = 'Output validation error: Your instruction is invalid.'
     return filtered_text
