@@ -13,7 +13,7 @@ Broken Chatbot is an application designed to verify vulnerabilities in LLM (Larg
 ---
 
 ## Latest Updates
-- Implementation of a defense mechanism using black list defense.
+- Implementation of Ollama support.
 
 ## Overview
 Utilizing LLM integration middleware like Flowise and LangChain facilitates the development of "LLM applications" that seamlessly integrate web applications, LLMs, and DBMSs. Consequently, there has been a noticeable increase in the number of LLM applications. Nevertheless, these applications present distinct attack surfaces compared to traditional web applications. As highlighted in the [OWASP Top 10 for LLM Applications](https://owasp.org/www-project-top-10-for-large-language-model-applications/), LLM applications are susceptible to a broad array of novel attack surfaces.  
@@ -63,12 +63,16 @@ DB_PASSWORD=root
 DB_HOST=db
 DB_NAME=broken_chatbot
 
-# ChatGPT.
+# LLM.
+LLM_PROVIDER=openai
 OPENAI_API_KEY=your_api_key
 OPENAI_MODEL_NAME=your_model_name
 OPENAI_MAX_TOKENS=256
 OPENAI_TEMPERATURE=0.9
 OPENAI_VERBOSE=true
+OLLAMA_BASE_URL=your_ollama_server_url (ex. http://192.168.0.1:11434)
+OLLAMA_MODEL_NAME=your_model_name_on_ollama (ex. llama3.2)
+OLLAMA_VERBOSE=true
 ```
 
 `your_api_key` represents your OpenAI API Key, while `your_model_name` denotes the model name of OpenAI's GPT.  
@@ -76,6 +80,13 @@ Consequently, both `your_api_key` and `your_model_name` ought to correspond to y
 This information can be procured from the website listed below.
 
 [https://platform.openai.com/](https://platform.openai.com/)
+
+
+### Note: Ollama running  
+By default, the OpenAI model is used.  
+If you want to use an LLM that runs on Ollama, set `LLM_PROVIDER=ollama` and set the Ollama server URL and model name in `OLLAMA_BASE_URL` and `OLLAMA_MODEL_NAME`.  
+
+Please note that Ollama is not running within the Broken Chatbot container, so you must set the `OLLAMA_BASE_URL` to a URL that is accessible from the Broken Chatbot container (take sufficient care with security).
 
 4. Placement of `.env` file created in step 3.  
 Position the `.env` file you have created at the specified path below.  
@@ -126,7 +137,7 @@ Utilize a web browser to access the specified URL.
 http://your_host_name
 ```
 
-Note:  
+### Note: BASIC authentication  
 BASIC authentication is required to access this application. the user name and password for BASIC authentication are as follows.
 ```
 username: broken_chatbot
@@ -207,7 +218,7 @@ username: root
 password: root
 ```
 
-Note:  
+### Note: DB data  
 You import the table data in the following order.
 1. users.csv
 2. user_settings.csv

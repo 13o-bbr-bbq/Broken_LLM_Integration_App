@@ -18,7 +18,8 @@ def prompt_leaking_lv1(question: str) -> str:
         answer = llm_chain.run(question)
         return answer
     except Exception as e:
-        return f"Error in ask_question_leaking: {', '.join(map(str, e.args))}"
+        print(e)
+        return f"Error in ask_question_leaking: {e}"
 
 
 # This level is implemented input/output filters.
