@@ -19,12 +19,16 @@ class Settings(Config):
     def DB_DATABASE_URL(self) -> str:
         return f"mysql+pymysql://{self.DB_USERNAME}:{self.DB_PASSWORD}@{self.DB_HOST}/{self.DB_NAME}"
 
-    # ChatGPT.
+    # LLM (ChatGPT or LLM on Ollama).
+    LLM_PROVIDER: str = "openai"
     OPENAI_API_KEY: str
     OPENAI_MODEL_NAME: str
     OPENAI_MAX_TOKENS: int
     OPENAI_TEMPERATURE: float
     OPENAI_VERBOSE: bool
+    OLLAMA_BASE_URL: str
+    OLLAMA_MODEL_NAME: str
+    OLLAMA_VERBOSE: bool
 
 
 settings = Settings()
