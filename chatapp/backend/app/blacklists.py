@@ -5,7 +5,9 @@ INPUT_BLACKLIST = [
     # Ex: DB tampering.
     r"(drop\s+table|all\s+users|users|;.*--|/\*)",
     # Ex: system files.
-    r'(contents of /etc/passwd|contents of /etc/shadow)'
+    r'(contents of /etc/passwd|contents of /etc/shadow)',
+    # Ex: Prompt Leaking.
+    r'(system prompt|prompt template|above text|top of)'
 ]
 
 # For output check (DB information leak, system critical information, etc.)
