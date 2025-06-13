@@ -7,7 +7,8 @@ from .llm_models import *
 from .llm_prompt_templates import *
 from .llm_db_chain import create_db_chain
 from .llm_shell_chain import run_pal_chain_native
-from .guardrails import load_nemo_guardrails
+from .guardrails import *
+from .settings import settings
 
 
 # This level is no guard.
@@ -53,6 +54,41 @@ async def prompt_leaking_lv4(question: str) -> str:
         chain_with_guardrails = prompt_template | (guardrails | model)
         answer = await chain_with_guardrails.ainvoke({'question': question})
         return answer
+    except Exception as e:
+        return f"Error in ask_question_leaking: {', '.join(map(str, e.args))}"
+
+
+# This level is implemented DeepKeep.
+async def prompt_leaking_lv5(question: str) -> str:
+    try:
+        _conversation_id = dk_start_conversation(firewall_id=settings.DK_FIREWALL_ID)
+
+        # Input Firewall.
+        request_res = dk_request_filter(
+            firewall_id=settings.DK_FIREWALL_ID,
+            conversation_id=_conversation_id,
+            prompt=question,
+            verbose=False
+        )
+        print(f"Request firewall data: {request_res.get('content')}")
+        if len(request_res) != 0:
+            print(f"Question: {question}")
+            prompt = PromptTemplate(template=prompt_leaking_lv1_template, input_variables=["question"])
+            llm_chain = LLMChain(prompt=prompt, llm=create_chat_openai_model())
+            answer = llm_chain.run(question)
+            print(f"Answer: {answer}")
+            response_res = dk_response_filter(
+                firewall_id=settings.DK_FIREWALL_ID,
+                conversation_id=_conversation_id,
+                prompt=answer,
+                verbose=False
+            )
+            print(response_res)
+            if len(response_res) == 0:
+                raise ValueError('Prompt Attack Detected in response by DeepKeep.')
+            return answer
+        else:
+            raise ValueError('Prompt Attack Detected in request by DeepKeep.')
     except Exception as e:
         return f"Error in ask_question_leaking: {', '.join(map(str, e.args))}"
 

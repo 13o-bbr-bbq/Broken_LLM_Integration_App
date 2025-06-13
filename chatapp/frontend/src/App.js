@@ -77,6 +77,7 @@ function App() {
                     </option>
                     <option value={`http://${hostname}:8000/prompt-leaking-lv3/`}>Leak Lv.3 (prompt hardener)</option>
                     <option value={`http://${hostname}:8000/prompt-leaking-lv4/`}>Leak Lv.4 (NeMo-Guardrails)</option>
+                    <option value={`http://${hostname}:8000/prompt-leaking-lv5/`}>Leak Lv.5 (DeepKeep)</option>
                     <option value={`http://${hostname}:8000/p2sql-injection-lv1/`}>SQLi Lv.1 (no guard)</option>
                     <option value={`http://${hostname}:8000/p2sql-injection-lv2/`}>SQLi Lv.2 (input/output regex filter)</option>
                     <option value={`http://${hostname}:8000/p2sql-injection-lv3/`}>SQLi Lv.3 (defensive system prompt)

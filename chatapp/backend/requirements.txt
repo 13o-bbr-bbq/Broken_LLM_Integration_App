@@ -4,6 +4,7 @@ uvicorn==0.23.2
 gunicorn==21.2.0
 pydantic==2.7.4
 pydantic-settings==2.7.1
+requests
 
 # Database
 sqlalchemy==2.0.21
