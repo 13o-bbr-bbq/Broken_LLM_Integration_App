@@ -73,6 +73,16 @@ async def api_prompt_leaking_lv4(message: Message) -> LLMResponse:
         return LLMResponse(text=f"Error: {', '.join(map(str, e.args))}")
 
 
+# This level is implemented DeepKeep.
+@app.post("/prompt-leaking-lv5")
+async def api_prompt_leaking_lv5(message: Message) -> LLMResponse:
+    try:
+        answer = await prompt_leaking_lv5(message.text)
+        return LLMResponse(text=answer)
+    except Exception as e:
+        return LLMResponse(text=f"Error: {', '.join(map(str, e.args))}")
+
+
 # This level is no guard.
 @app.post("/p2sql-injection-lv1")
 async def api_p2sql_injection_lv1(message: Message) -> LLMResponse:
