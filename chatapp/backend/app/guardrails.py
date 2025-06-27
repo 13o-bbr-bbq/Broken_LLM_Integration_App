@@ -1,4 +1,5 @@
 import requests
+import time
 from pathlib import Path
 from typing import Optional
 from time import sleep
@@ -53,12 +54,16 @@ def dk_get_statistics(request_id: str):
 # Send request to DeepKeep Input Filters.
 def dk_request_filter(firewall_id: str, conversation_id: str, prompt: str, logs: bool = False, verbose: bool = False):
     input_prompt_params = {"content": prompt, "logs": logs}
+    start_time = time.perf_counter()
     request_filter_res = requests.post(f"{settings.DK_API_URL}/monitoring/{firewall_id}/conversation/{conversation_id}/check_user_input",
                                      json=input_prompt_params,
                                      headers=_dk_generate_headers())
+    end_time = time.perf_counter()
+    elapsed_time = end_time - start_time
+
     if not request_filter_res.ok:
         print(request_filter_res.json())
-        return {}
+        return {}, elapsed_time
 
     firewall_response = request_filter_res.json()
 
@@ -66,21 +71,25 @@ def dk_request_filter(firewall_id: str, conversation_id: str, prompt: str, logs:
         _res_verbose = dk_get_statistics(request_id=firewall_response.get("request_id"))
         firewall_response |= _res_verbose
 
-    return firewall_response
+    return firewall_response, elapsed_time
 
 
 # Send response to DeepKeep Output Filters.
 def dk_response_filter(firewall_id: str, conversation_id: str, prompt: str, logs: bool = False, verbose: bool = False):
     input_prompt_params = {"content": prompt, "logs": logs}
+    start_time = time.perf_counter()
     response_filter_res = requests.post(f"{settings.DK_API_URL}/monitoring/{firewall_id}/conversation/{conversation_id}/check_model_output",
                                         json=input_prompt_params, headers=_dk_generate_headers())
+    end_time = time.perf_counter()
+    elapsed_time = end_time - start_time
+
     if not response_filter_res.ok:
         print(response_filter_res.json())
-        return {}
+        return {}, elapsed_time
 
     firewall_response = response_filter_res.json()
     if verbose:
         _res_verbose = dk_get_statistics(request_id=firewall_response.get("request_id"))
         firewall_response |= _res_verbose
 
-    return firewall_response
+    return firewall_response, elapsed_time

@@ -1,4 +1,7 @@
+import os
 import uuid
+import json
+from datetime import datetime, timezone, timedelta
 
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
@@ -61,34 +64,77 @@ async def prompt_leaking_lv4(question: str) -> str:
 # This level is implemented DeepKeep.
 async def prompt_leaking_lv5(question: str) -> str:
     try:
+        # Create record structure.
+        jst = timezone(timedelta(hours=9), name="JST")
+        record = {
+            "timestamp": datetime.now(jst).isoformat(),
+            "id": uuid.uuid4().hex,
+            "original prompt": question,
+            "triggered input filter": False,
+            "input filtered response": "",
+            "request filter lapsed_time": "",
+            "original response": "",
+            "triggered output filter": False,
+            "output filtered response": "",
+            "response filter lapsed_time": "",
+        }
+
+        # Load existing file.
+        filename = "./inspect_result.json"
+        if os.path.exists(filename):
+            try:
+                with open(filename, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                if not isinstance(data, list):
+                    data = []
+            except (json.JSONDecodeError, IOError):
+                data = []
+        else:
+            data = []
+
+        # Create conversation for DeepKeep.
         _conversation_id = dk_start_conversation(firewall_id=settings.DK_FIREWALL_ID)
 
-        # Input Firewall.
-        request_res = dk_request_filter(
+        # Input Firewall of DeepKeep.
+        request_res, elapsed_time = dk_request_filter(
             firewall_id=settings.DK_FIREWALL_ID,
             conversation_id=_conversation_id,
             prompt=question,
             verbose=False
         )
-        print(f"Request firewall data: {request_res.get('content')}")
-        if len(request_res) != 0:
-            print(f"Question: {question}")
+        record["Request filter lapsed_time"] = elapsed_time
+
+        answer = ""
+        if request_res["violate_policy"]:
+            answer = f"Prompt Attack Detected in request by DeepKeep: {request_res.get('content')}"
+            record["triggered input filter"] = True
+            record["input filtered response"] = answer
+        else:
             prompt = PromptTemplate(template=prompt_leaking_lv1_template, input_variables=["question"])
             llm_chain = LLMChain(prompt=prompt, llm=create_chat_openai_model())
             answer = llm_chain.run(question)
-            print(f"Answer: {answer}")
-            response_res = dk_response_filter(
+            record["original response"] = answer
+
+            # Output Firewall of DeepKeep.
+            response_res, elapsed_time = dk_response_filter(
                 firewall_id=settings.DK_FIREWALL_ID,
                 conversation_id=_conversation_id,
                 prompt=answer,
                 verbose=False
             )
-            print(response_res)
-            if len(response_res) == 0:
-                raise ValueError('Prompt Attack Detected in response by DeepKeep.')
-            return answer
-        else:
-            raise ValueError('Prompt Attack Detected in request by DeepKeep.')
+            record["Response filter lapsed_time"] = elapsed_time
+
+            if response_res["violate_policy"]:
+                answer = f"Prompt Attack Detected in response by DeepKeep: {response_res.get('content')}"
+                record["triggered output filter"] = True
+                record["output filtered response"] = answer
+
+        # Record inspect result.
+        data.append(record)
+        with open(filename, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+
+        return answer
     except Exception as e:
         return f"Error in ask_question_leaking: {', '.join(map(str, e.args))}"
 
