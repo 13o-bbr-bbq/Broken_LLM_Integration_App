@@ -102,7 +102,7 @@ async def prompt_leaking_lv5(question: str) -> str:
             prompt=question,
             verbose=False
         )
-        record["Request filter lapsed_time"] = elapsed_time
+        record["request filter lapsed_time"] = elapsed_time
 
         answer = ""
         if request_res["violate_policy"]:
@@ -122,7 +122,7 @@ async def prompt_leaking_lv5(question: str) -> str:
                 prompt=answer,
                 verbose=False
             )
-            record["Response filter lapsed_time"] = elapsed_time
+            record["response filter lapsed_time"] = elapsed_time
 
             if response_res["violate_policy"]:
                 answer = f"Prompt Attack Detected in response by DeepKeep: {response_res.get('content')}"
