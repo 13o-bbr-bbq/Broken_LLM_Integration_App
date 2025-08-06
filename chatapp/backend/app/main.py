@@ -84,6 +84,16 @@ async def api_prompt_leaking_lv5(message: Message) -> LLMResponse:
 
 
 # This level is no guard.
+@app.post("/indirect-pi-lv1")
+async def api_indirect_pi_lv1(message: Message) -> LLMResponse:
+    try:
+        answer = indirect_pi_lv1(message.text)
+        return LLMResponse(text=answer)
+    except Exception as e:
+        return LLMResponse(text=f"Error: {', '.join(map(str, e.args))}")
+
+
+# This level is no guard.
 @app.post("/p2sql-injection-lv1")
 async def api_p2sql_injection_lv1(message: Message) -> LLMResponse:
     try:
