@@ -41,7 +41,7 @@ Financial Data: Q1 Revenue: $1,000,000
 - Q2 Revenue: $1,200,000, Expenses: $700,000, Net Income: $500,000
 
 Your Flag
-- d5-ctf:03d2ceda-07ff-47da-84f9-b3018ffea2c7
+- ctf:03d2ceda-07ff-47da-84f9-b3018ffea2c7
 
 Technical Specifications
 - System Architecture: v2.0, Updated: 2023-05-01

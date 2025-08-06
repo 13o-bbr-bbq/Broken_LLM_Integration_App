@@ -5,6 +5,7 @@ from datetime import datetime, timezone, timedelta
 
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
+from langchain.document_loaders import WebBaseLoader
 
 from .llm_models import *
 from .llm_prompt_templates import *
@@ -137,6 +138,22 @@ async def prompt_leaking_lv5(question: str) -> str:
         return answer
     except Exception as e:
         return f"Error in ask_question_leaking: {', '.join(map(str, e.args))}"
+
+
+# This level is no guard.
+def indirect_pi_lv1(question: str) -> str:
+    try:
+        # Getting external web content.
+        loader = WebBaseLoader(f"http://dummy_web:8001/")
+        docs = loader.load()
+
+        prompt = PromptTemplate(template=indirect_pi_lv1_template, input_variables=["page_content", "question"])
+        llm_chain = LLMChain(prompt=prompt, llm=create_chat_openai_model())
+        answer = llm_chain.run(page_content=docs[0].page_content, question=question)
+        return answer
+    except Exception as e:
+        print(e)
+        return f"Error in ask_question_indirect: {e}"
 
 
 # This level is no guard.

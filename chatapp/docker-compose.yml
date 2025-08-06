@@ -114,6 +114,16 @@ services:
     networks:
       - broken_chatbot
 
+  dummy_web:
+    container_name: dummy_web
+    build:
+      context: ./dummy_web
+      dockerfile: dummy_web.Dockerfile
+    ports:
+      - "8001:8001"
+    networks:
+      - broken_chatbot
+
   nginx:
     container_name: chatbot_nginx
     build:
