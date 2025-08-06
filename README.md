@@ -1,5 +1,5 @@
 # Broken Chatbot
-![Version](https://img.shields.io/badge/release-20250128-blue) ![First release](https://img.shields.io/badge/first_release-november_2023-%23Clojure) ![License](https://img.shields.io/badge/License-MIT-%23326ce5)  
+![Version](https://img.shields.io/badge/release-20250806-blue) ![First release](https://img.shields.io/badge/first_release-november_2023-%23Clojure) ![License](https://img.shields.io/badge/License-MIT-%23326ce5)  
 ![Release date](https://img.shields.io/badge/nginx-1.25.5-%23Clojure) ![Docker](https://img.shields.io/badge/Docker-%230db7ed) ![ChatGPT](https://img.shields.io/badge/ChatGPT-74aa9c) ![LangChain](https://img.shields.io/badge/LangChain-0.3.0-%23EB0443) ![Python](https://img.shields.io/badge/Python-3.11.6-ffdd54) ![FastAPI](https://img.shields.io/badge/FastAPI-0.103.2-005571) ![React](https://img.shields.io/badge/React-17.0.2-%2361DAFB) ![MySQL](https://img.shields.io/badge/MySQL-8.0.28-%2300f)
 
 <img src="./assets/images/broken_chatbot_logo.png" width="70%">
@@ -13,7 +13,7 @@ Broken Chatbot is an application designed to verify vulnerabilities in LLM (Larg
 ---
 
 ## Latest Updates
-- Implementation of Ollama support.
+- Implementation of indirect prompt injection.
 
 ## Overview
 Utilizing LLM integration middleware like Flowise and LangChain facilitates the development of "LLM applications" that seamlessly integrate web applications, LLMs, and DBMSs. Consequently, there has been a noticeable increase in the number of LLM applications. Nevertheless, these applications present distinct attack surfaces compared to traditional web applications. As highlighted in the [OWASP Top 10 for LLM Applications](https://owasp.org/www-project-top-10-for-large-language-model-applications/), LLM applications are susceptible to a broad array of novel attack surfaces.  
@@ -25,9 +25,12 @@ We have developed a LLM application named "Broken Chatbot," designed to facilita
 ## Features
 The present version of Broken Chatbot exhibits the following vulnerabilities.  
 
-- Prompt Injection  
+- Direct Prompt Injection  
   - An attack involving the input of malicious prompts designed to manipulate LLMs.  
-  - Prompt Injection is a technique employed to manipulate or exploit conversational AI systems, such as chatbots or virtual assistants, by crafting inputs that embed hidden or unexpected instructions. This strategy can be utilized to modify the AI's behavior in unintended ways or to extract information that ought to remain inaccessible. For more information, see "[Prompt Injection](https://learnprompting.org/docs/prompt_hacking/injection)" in Learn Prompting.  
+  - Direct Prompt Injection is a technique employed to manipulate or exploit conversational AI systems, such as chatbots or virtual assistants, by crafting inputs that embed hidden or unexpected instructions. This strategy can be utilized to modify the AI's behavior in unintended ways or to extract information that ought to remain inaccessible. For more information, see "[Prompt Injection](https://learnprompting.org/docs/prompt_hacking/injection)" in Learn Prompting.  
+- Indirect Prompt Injection
+  - An attack where malicious instructions are embedded in content that is later processed by an LLM, often through another application or intermediary. 
+  - Indirect Prompt Injection targets the interaction between systems by inserting harmful prompts into inputs that are not initially interpreted as instructions, such as user-generated content, documents, or web pages. When these inputs are later consumed by an LLM—typically through summarization, analysis, or autonomous agent behavior—the hidden instructions are activated, potentially leading the model to perform unauthorized actions or disclose sensitive information. This method is particularly dangerous in multi-agent or automated systems where human oversight is limited. For more information, see "[Indirect Injection](https://learnprompting.org/docs/prompt_hacking/offensive_measures/indirect_injection)" in Learn Prompting.
 - Prompt Leaking  
   - An attempt to exfiltrate system prompts within LLM applications through the entry of malicious prompts.  
   - Prompt Leaking describes a scenario in which a conversational AI, such as a chatbot or a language model, inadvertently discloses all or portions of its internal prompts, or operational instructions within its responses. This phenomenon may occur due to flaws in the AI's design or when the AI is manipulated into revealing more information than intended. For more information, see "[Prompt Leaking](https://learnprompting.org/docs/prompt_hacking/leaking)" in Learn Prompting.  
@@ -242,9 +245,14 @@ Additionally, users have the option to alter the behavior of Broken Chatbot by s
 - Leak Lv.2 (Defense using black list (input/output filters))
   - You can execute the `Prompt Leaking`, enabling them to attempt theft of the `System Template` of Broken Chatbot by malicious prompts (`Prompt Injection`). Here, the Broken Chatbot uses a regular expression-based blacklist to check user prompts and responses generated by the LLM, and if an invalid string is found, it can reject the response.
 - Leak Lv.3 (Defense using Prompt Hardener)
-  - You can execute the `Prompt Leaking`, enabling them to attempt theft of the `System Template` of Broken Chatbot by malicious prompts (`Prompt Injection`). Here, the Broken Chatbot is programmed with a prompt-hardener (https://github.com/cybozu/prompt-hardener) designed to prevent system prompt theft.   
+  - You can execute the `Prompt Leaking`, enabling them to attempt theft of the `System Template` of Broken Chatbot by malicious prompts (`Prompt Injection`). Here, the Broken Chatbot is programmed with a [prompt-hardener](https://github.com/cybozu/prompt-hardener) designed to prevent system prompt theft.   
 - Leak Lv.4 (Defense using NeMo-Guardrails)
-  - You can execute the `Prompt Leaking`, enabling them to attempt theft of the `System Template` of Broken Chatbot by malicious prompts (`Prompt Injection`). Here, the Broken Chatbot is programmed with a NeMo-Guardrails(https://github.com/NVIDIA/NeMo-Guardrails) designed to prevent system prompt theft.   
+  - You can execute the `Prompt Leaking`, enabling them to attempt theft of the `System Template` of Broken Chatbot by malicious prompts (`Prompt Injection`). Here, the Broken Chatbot is programmed with a [NeMo-Guardrails](https://github.com/NVIDIA/NeMo-Guardrails) designed to prevent system prompt theft.
+- Leak Lv.5 (DeepKeep)
+  - You can execute the `Prompt Leaking`, enabling them to attempt theft of the `System Template` of Broken Chatbot by malicious prompts (`Prompt Injection`). Here, the Broken Chatbot is programmed with a [DeepKeep](https://www.deepkeep.ai/) designed to prevent system prompt theft.   
+- Indirect PI Lv.1 
+  - You can execute an `Indirect Prompt Injection`, enabling attackers to embed malicious instructions within Web content. These hidden prompts are later processed by LLM, leading it to unintentionally execute unauthorized actions or leak sensitive data such as the System Template.
+  - You must observe the website "[Web Security News](http://localhost:8001/)" to find the secret trigger and launch an attack.
 - SQLi Lv.1 (No Guard)
   - You can execute the `P2SQL Injection`, enabling them to attempt data theft, data tampering and deletion from the 'users' table which Broken Chatbot is connected by malicious prompts (`Prompt Injection`).
 - SQLi Lv.2 (Defense using black list (input/output filters))
@@ -252,7 +260,7 @@ Additionally, users have the option to alter the behavior of Broken Chatbot by s
 - SQLi Lv.3 (Defense using defensive system template)
   - In this mode, the challenge intensifies through a more complex `P2SQL injection`. Here, the Broken Chatbot is programmed with a defensive system template designed to prevent data theft, tampering, or deletion. Nevertheless, you may attempt to circumvent these protective measures using `Prompt Injection`, potentially leading to data theft, tampering, or deletion in the users' table.  
 - SQLi Lv.4 (Defense using Prompt Hardener)
-  - In this mode, the challenge intensifies through a more complex `P2SQL injection`. Here, the Broken Chatbot is programmed with a prompt-hardener (https://github.com/cybozu/prompt-hardener) designed to prevent data theft, tampering, or deletion. Nevertheless, you may attempt to circumvent these protective measures using `Prompt Injection`, potentially leading to data theft, tampering, or deletion in the users' table.  
+  - In this mode, the challenge intensifies through a more complex `P2SQL injection`. Here, the Broken Chatbot is programmed with a [prompt-hardener](https://github.com/cybozu/prompt-hardener) designed to prevent data theft, tampering, or deletion. Nevertheless, you may attempt to circumvent these protective measures using `Prompt Injection`, potentially leading to data theft, tampering, or deletion in the users' table.  
 - SQLi Lv.5 (Defense using LLM-as-a-Judge)
   - In this mode, the challenge intensifies through a more complex `P2SQL injection`. Here, the Broken Chatbot is programmed with a LLM-as-a-Judge designed to prevent data theft, tampering, or deletion. Nevertheless, you may attempt to circumvent these protective measures using `Prompt Injection`, potentially leading to data theft, tampering, or deletion in the users' table.  
 - LLM4Shell Lv.1 (No Guard)
@@ -260,7 +268,7 @@ Additionally, users have the option to alter the behavior of Broken Chatbot by s
 - LLM4Shell Lv.2 (Defense using black list (input/output filters))
   - You can execute the complex `LLM4Shell`, enabling them to execute `Remote Code Execution` (RCE) on the system where Broken Chatbot is running. In addition, you can execute intrusion into the system. However, in this mode, Broken Chatbot uses a regular expression-based blacklist to check user prompts and responses generated by the LLM, and if an invalid string is found, it can reject the response.  
 - LLM4Shell Lv.3 (Defense using Prompt Hardener)
-  - You can execute the complex `LLM4Shell`, enabling them to execute `Remote Code Execution` (RCE) on the system where Broken Chatbot is running. In addition, you can execute intrusion into the system. However, in this mode, Broken Chatbot is protected with prompt-hardener (https://github.com/cybozu/prompt-hardener) designed to prevent data theft, tampering, or deletion.  
+  - You can execute the complex `LLM4Shell`, enabling them to execute `Remote Code Execution` (RCE) on the system where Broken Chatbot is running. In addition, you can execute intrusion into the system. However, in this mode, Broken Chatbot is protected with [prompt-hardener](https://github.com/cybozu/prompt-hardener) designed to prevent data theft, tampering, or deletion.  
 - LLM4Shell Lv.4 (Defense using LLM-as-a-Judge)
   - You can execute the complex `LLM4Shell`, enabling them to execute `Remote Code Execution` (RCE) on the system where Broken Chatbot is running. In addition, you can execute intrusion into the system. However, in this mode, Broken Chatbot is protected with LLM-as-a-Judge designed to prevent data theft, tampering, or deletion.  
 
