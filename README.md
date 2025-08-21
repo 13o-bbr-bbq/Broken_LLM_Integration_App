@@ -68,18 +68,23 @@ DB_NAME=broken_chatbot
 
 # LLM.
 LLM_PROVIDER=openai
-OPENAI_API_KEY=your_api_key
-OPENAI_MODEL_NAME=your_model_name
+OPENAI_API_KEY=your_openai_api_key
+OPENAI_MODEL_NAME=your_openai_model_name
 OPENAI_MAX_TOKENS=256
 OPENAI_TEMPERATURE=0.9
 OPENAI_VERBOSE=true
 OLLAMA_BASE_URL=your_ollama_server_url (ex. http://192.168.0.1:11434)
-OLLAMA_MODEL_NAME=your_model_name_on_ollama (ex. llama3.2)
+OLLAMA_MODEL_NAME=your_ollama_model_name_on_ollama (ex. llama3.2)
 OLLAMA_VERBOSE=true
+
+# DeepKeep
+DK_API_URL=your_deepkeep_server
+DK_FIREWALL_ID=your_deepkeep_firewall_id
+DK_TOKEN=your_deepkeep_api_key
 ```
 
-`your_api_key` represents your OpenAI API Key, while `your_model_name` denotes the model name of OpenAI's GPT.  
-Consequently, both `your_api_key` and `your_model_name` ought to correspond to your accessible API Key and designated model name, respectively.  
+`your_openai_api_key` represents your OpenAI API Key, while `your_openai_model_name` denotes the model name of OpenAI's GPT.  
+Consequently, both `your_openai_api_key` and `your_openai_model_name` ought to correspond to your accessible API Key and designated model name, respectively.  
 This information can be procured from the website listed below.
 
 [https://platform.openai.com/](https://platform.openai.com/)
@@ -90,6 +95,9 @@ By default, the OpenAI model is used.
 If you want to use an LLM that runs on Ollama, set `LLM_PROVIDER=ollama` and set the Ollama server URL and model name in `OLLAMA_BASE_URL` and `OLLAMA_MODEL_NAME`.  
 
 Please note that Ollama is not running within the Broken Chatbot container, so you must set the `OLLAMA_BASE_URL` to a URL that is accessible from the Broken Chatbot container (take sufficient care with security).
+
+### Note: Using DeepKeep
+When using DeepKeep, set DeepKeep's API endpoint in `DK_API_URL`, DeepKeep's Firewall ID in `DK_FIREWALL_ID`, and DeepKeep's API key in `DK_TOKEN`.  
 
 4. Placement of `.env` file created in step 3.  
 Position the `.env` file you have created at the specified path below.  
