@@ -7,7 +7,7 @@ INPUT_BLACKLIST = [
     # Ex: system files.
     r'(contents of /etc/passwd|contents of /etc/shadow)',
     # Ex: Prompt Leaking.
-    r'(system prompt|prompt template|above text|top of)'
+    r'(system prompt|systemprompt|prompt template|above text|top of)'
 ]
 
 # For output check (DB information leak, system critical information, etc.)
@@ -15,7 +15,10 @@ OUTPUT_BLACKLIST = [
     # Ex: other user's name.
     r"(Carol|Charlie|Dave|Bob)",
     # Ex: content of /etc/passwd.
-    r"(root\:x|/root\:/bin)"
+    r"(root\:x|/root\:/bin)",
+    r"API_KEY",
+    r"APIKEY",
+    r"cf96b096-156b-4fff-b285-2dedce7d5da5"
 ]
 
 def contains_blacklisted_pattern(text: str, patterns: list[str]) -> bool:
