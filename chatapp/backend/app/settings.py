@@ -19,6 +19,7 @@ class Settings(BaseSettings):
     # LLM (ChatGPT or LLM on Ollama).
     LLM_PROVIDER: str = "openai"
     OPENAI_API_KEY: str
+    OPENAI_BASE_URL: str = ""
     OPENAI_MODEL_NAME: str
     OPENAI_MAX_TOKENS: int
     OPENAI_TEMPERATURE: float

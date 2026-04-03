@@ -10,6 +10,7 @@ def create_chat_openai_model():
     if provider == "openai":
         return ChatOpenAI(
             openai_api_key=settings.OPENAI_API_KEY,
+            openai_api_base=settings.OPENAI_BASE_URL or None,
             model_name=settings.OPENAI_MODEL_NAME,
             max_tokens=settings.OPENAI_MAX_TOKENS,
             temperature=settings.OPENAI_TEMPERATURE,
