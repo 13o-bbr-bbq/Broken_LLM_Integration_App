@@ -69,6 +69,7 @@ DB_NAME=broken_chatbot
 # LLM.
 LLM_PROVIDER=openai
 OPENAI_API_KEY=your_openai_api_key
+#OPENAI_BASE_URL=https://your-custom-endpoint/v1
 OPENAI_MODEL_NAME=your_openai_model_name
 OPENAI_MAX_TOKENS=256
 OPENAI_TEMPERATURE=0.9
@@ -89,6 +90,10 @@ This information can be procured from the website listed below.
 
 [https://platform.openai.com/](https://platform.openai.com/)
 
+
+### Note: Using a custom OpenAI-compatible endpoint  
+If you want to use an OpenAI-compatible API endpoint (e.g., Azure OpenAI, LM Studio, or a local proxy), set `OPENAI_BASE_URL` to the base URL of that endpoint.  
+If `OPENAI_BASE_URL` is not set, the default OpenAI API endpoint is used.  
 
 ### Note: Ollama running  
 By default, the OpenAI model is used.  
