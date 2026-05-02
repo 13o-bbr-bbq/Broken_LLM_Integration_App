@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
+import Login from './Login';
 import userIcon from './assets/icons/user_icon_40.png';
 import botIcon from './assets/icons/robot_icon_40.png';
 import loadingAnimation from './assets/animations/three-dots.svg';
 
 function App() {
     const hostname = process.env.REACT_APP_HOST_NAME;
+    const [token, setToken] = useState(localStorage.getItem('token') || null);
+    const [username, setUsername] = useState(localStorage.getItem('username') || '');
     const [inputMessage, setInputMessage] = useState('');
     const [chatLog, setChatLog] = useState([]);
     const [apiUrl, setApiUrl] = useState(`http://${hostname}:8000/prompt-leaking-lv1/`);
@@ -18,6 +21,19 @@ function App() {
         }
     }, [chatLog]);
 
+    const handleLogin = (newToken, newUsername) => {
+        setToken(newToken);
+        setUsername(newUsername);
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('username');
+        setToken(null);
+        setUsername('');
+        setChatLog([]);
+    };
+
     const handleSubmit = async () => {
         const newChatLog = [...chatLog, {from: 'user', message: inputMessage}, {from: 'bot', message: 'loading'}];
         setChatLog(newChatLog);
@@ -28,9 +44,14 @@ function App() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify({text: inputMessage}),
             });
+            if (response.status === 401) {
+                handleLogout();
+                return;
+            }
             const data = await response.json();
             const updatedChatLog = [...newChatLog];
             updatedChatLog[updatedChatLog.length - 1].message = data.text;
@@ -42,10 +63,26 @@ function App() {
         }
     };
 
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            if (inputMessage.trim()) handleSubmit();
+        }
+    };
+
+    if (!token) {
+        return <Login onLogin={handleLogin} />;
+    }
 
     return (
         <div className="App">
-            <div className="headerBar">Broken Chatbot beta</div>
+            <div className="headerBar">
+                <span>Broken Chatbot beta</span>
+                <div className="headerRight">
+                    <span className="headerUsername">{username}</span>
+                    <button className="logoutButton" onClick={handleLogout}>Logout</button>
+                </div>
+            </div>
             <div className="chatLog" ref={chatLogRef}>
                 {chatLog.map((chat, index) => (
                     <div key={index} className={`bubble-container ${chat.from}-container`}>
@@ -66,6 +103,7 @@ function App() {
                     type="text"
                     value={inputMessage}
                     onChange={e => setInputMessage(e.target.value)}
+                    onKeyDown={handleKeyDown}
                     placeholder="Send a message"
                 />
                 <select

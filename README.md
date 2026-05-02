@@ -4,6 +4,8 @@
 
 <img src="./assets/images/broken_chatbot_logo.png" width="70%">
 
+[日本語](README_ja.md)
+
 Broken Chatbot is an application designed to verify vulnerabilities in LLM (Large Language Model) applications, including Prompt Injection, Prompt Leaking, P2SQL Injection and LLM4Shell.
 
 |Note|
@@ -13,7 +15,7 @@ Broken Chatbot is an application designed to verify vulnerabilities in LLM (Larg
 ---
 
 ## Latest Updates
-- Implementation of indirect prompt injection.
+- Implementation of JWT authentication (login screen, protected API endpoints, CSV-based sample data import).
 
 ## Overview
 Utilizing LLM integration middleware like Flowise and LangChain facilitates the development of "LLM applications" that seamlessly integrate web applications, LLMs, and DBMSs. Consequently, there has been a noticeable increase in the number of LLM applications. Nevertheless, these applications present distinct attack surfaces compared to traditional web applications. As highlighted in the [OWASP Top 10 for LLM Applications](https://owasp.org/www-project-top-10-for-large-language-model-applications/), LLM applications are susceptible to a broad array of novel attack surfaces.  
@@ -60,6 +62,11 @@ Construct a configuration file for backend of Broken Chatbot.
 Refer to the example provided below.  
 
 ```bash
+# Auth (JWT).
+SECRET_KEY=your_secret_key
+ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=60
+
 # MySQL.
 DB_USERNAME=root
 DB_PASSWORD=root
@@ -83,6 +90,8 @@ DK_API_URL=your_deepkeep_server
 DK_FIREWALL_ID=your_deepkeep_firewall_id
 DK_TOKEN=your_deepkeep_api_key
 ```
+
+Set `SECRET_KEY` to any sufficiently long random string. This key is used to sign and verify JWT tokens.
 
 `your_openai_api_key` represents your OpenAI API Key, while `your_openai_model_name` denotes the model name of OpenAI's GPT.  
 Consequently, both `your_openai_api_key` and `your_openai_model_name` ought to correspond to your accessible API Key and designated model name, respectively.  
@@ -154,22 +163,42 @@ http://your_host_name
 ```
 
 ### Note: BASIC authentication  
-BASIC authentication is required to access this application. the user name and password for BASIC authentication are as follows.
+BASIC authentication (Nginx) is still required to access this application. The username and password are as follows.
 ```
 username: broken_chatbot
 password: KNBDSf+[<3\\HAKHw8:_rF=rZ78!W$Uo
 ```
 The credentials should be used locally only. It should not be used with Broken Chatbot for the Internet!
 
-11. Importing Table Data.  
-The present version of Broken Chatbot retrieves data from the users table in a DBMS (MySQL).  
-Below is the structure of the users table.  
+### Note: JWT authentication  
+In addition to BASIC authentication, the application requires **JWT-based login** via the login screen. The following accounts are provided in the sample CSV data (`assets/sample_data/users.csv`):
+
+| Username | Password    | Role      |
+|----------|-------------|-----------|
+| admin    | admin123    | superuser |
+| alice    | alice123    | user      |
+| bob      | bob123      | user      |
+| carol    | carol123    | user      |
+| charlie  | charlie123  | user      |
+| dave     | dave123     | user      |
+
+Log in with any of these credentials on the login screen that appears when you first access the application.  
+The JWT token is stored in the browser's `localStorage` and is automatically attached to every API request.
+
+11. Database tables and sample data.  
+All database tables are created automatically when the backend starts. To populate the tables with sample data, run the provided import script after the containers are up:
+
+```bash
+./import_sample_data.sh
+```
+
+The script imports CSV files from `assets/sample_data/` in the following order: `users` → `user_settings` → `chats` → `memberships` → `messages`.  
+
+The table structure is as follows:
 
 ```python
-# User table.
 class User(Base):
     __tablename__ = "users"
-
     id = Column(Integer, Sequence("user_id_seq"), primary_key=True)
     username = Column(String(50), unique=True, index=True)
     email = Column(String(100), unique=True, index=True)
@@ -177,65 +206,24 @@ class User(Base):
     hashed_password = Column(String(100))
     is_active = Column(Boolean, default=True)
     is_superuser = Column(Boolean, default=False)
-
-
-class Chat(Base):
-    __tablename__ = "chats"
-
-    id = Column(Integer, Sequence("chat_id_seq"), primary_key=True)
-    name = Column(String(100), unique=True, index=True)
-    created_at = Column(Integer)
-    created_by = Column(Integer, ForeignKey("users.id"))
-
-
-class Message(Base):
-    __tablename__ = "messages"
-
-    id = Column(Integer, Sequence("message_id_seq"), primary_key=True)
-    chat_id = Column(Integer, ForeignKey("chats.id"))
-    user_id = Column(Integer, ForeignKey("users.id"))
-    content = Column(String(500))
-    timestamp = Column(Integer)
-
-
-class Membership(Base):
-    __tablename__ = "memberships"
-
-    id = Column(Integer, Sequence("membership_id_seq"), primary_key=True)
-    user_id = Column(Integer, ForeignKey("users.id"))
-    chat_id = Column(Integer, ForeignKey("chats.id"))
-    role = Column(String(50))
-    joined_at = Column(Integer)
-
-
-class UserSettings(Base):
-    __tablename__ = "user_settings"
-
-    id = Column(Integer, Sequence("user_settings_id_seq"), primary_key=True)
-    user_id = Column(Integer, ForeignKey("users.id"))
-    theme = Column(String(50))
-    notifications_enabled = Column(Boolean, default=True)
-    language = Column(String(50))
 ```
 
-Should you wish to import the sample data we have prepared into tables, please utilize the following data:  
-[Sample data](./assets/sample_data/)  
-
-You can import these data from phpmyadmin.  
+You can inspect or modify data via phpMyAdmin:
 
 ```
 http://your_host_name:8080
 ```
 
-The credentials for phpmyadmin are as follows.  
+phpMyAdmin credentials:
 
 ```
 username: root
 password: root
 ```
 
-### Note: DB data  
-You import the table data in the following order.
+### Note: Additional sample data  
+If you wish to populate the tables with sample data, you can also import the CSV files manually from phpMyAdmin in the following order:
+
 1. users.csv
 2. user_settings.csv
 3. chats.csv

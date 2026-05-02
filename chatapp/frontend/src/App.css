@@ -169,3 +169,111 @@ button:hover {
     display: flex;
     justify-content: flex-start;
 }
+
+/* ── Header auth area ─────────────────────────────────────────── */
+.headerBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    box-sizing: border-box;
+}
+
+.headerRight {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.headerUsername {
+    font-size: 14px;
+    color: #ccc;
+}
+
+.logoutButton {
+    padding: 4px 12px;
+    font-size: 13px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    background-color: transparent;
+    color: #eee;
+    cursor: pointer;
+}
+
+.logoutButton:hover {
+    background-color: #555;
+}
+
+/* ── Login page ───────────────────────────────────────────────── */
+.loginPage {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #87ceeb;
+}
+
+.loginBox {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 40px 36px;
+    width: 320px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+.loginTitle {
+    margin: 0 0 4px;
+    font-size: 24px;
+    color: #333;
+}
+
+.loginSubtitle {
+    margin: 0 0 24px;
+    font-size: 13px;
+    color: #999;
+}
+
+.loginField {
+    margin-bottom: 14px;
+}
+
+.loginField input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.loginField input:focus {
+    outline: none;
+    border-color: #008CBA;
+}
+
+.loginError {
+    color: #d9534f;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+.loginButton {
+    width: 100%;
+    padding: 10px;
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.loginButton:hover {
+    background-color: #0056b3;
+}
+
+.loginButton:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+}
