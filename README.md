@@ -1,6 +1,6 @@
 # Broken Chatbot
-![Version](https://img.shields.io/badge/release-20250806-blue) ![First release](https://img.shields.io/badge/first_release-november_2023-%23Clojure) ![License](https://img.shields.io/badge/License-MIT-%23326ce5)  
-![Release date](https://img.shields.io/badge/nginx-1.25.5-%23Clojure) ![Docker](https://img.shields.io/badge/Docker-%230db7ed) ![ChatGPT](https://img.shields.io/badge/ChatGPT-74aa9c) ![LangChain](https://img.shields.io/badge/LangChain-0.3.0-%23EB0443) ![Python](https://img.shields.io/badge/Python-3.11.6-ffdd54) ![FastAPI](https://img.shields.io/badge/FastAPI-0.103.2-005571) ![React](https://img.shields.io/badge/React-17.0.2-%2361DAFB) ![MySQL](https://img.shields.io/badge/MySQL-8.0.28-%2300f)
+![Version](https://img.shields.io/github/v/release/13o-bbr-bbq/Broken_LLM_Integration_App) ![First release](https://img.shields.io/badge/first_release-november_2023-%23Clojure) ![License](https://img.shields.io/badge/License-MIT-%23326ce5)  
+![Last commit](https://img.shields.io/github/last-commit/13o-bbr-bbq/Broken_LLM_Integration_App) ![Docker](https://img.shields.io/badge/Docker-%230db7ed) ![ChatGPT](https://img.shields.io/badge/ChatGPT-74aa9c) ![LangChain](https://img.shields.io/badge/LangChain-0.3.0-%23EB0443) ![Python](https://img.shields.io/badge/Python-3.11.6-ffdd54) ![FastAPI](https://img.shields.io/badge/FastAPI-0.103.2-005571) ![React](https://img.shields.io/badge/React-17.0.2-%2361DAFB) ![MySQL](https://img.shields.io/badge/MySQL-8.0.28-%2300f)
 
 <img src="./assets/images/broken_chatbot_logo.png" width="70%">
 
